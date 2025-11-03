@@ -12,7 +12,12 @@ public class PlayerMove : MonoBehaviour
     // 3. 이동
 
     // 필요 속성:
+    [Header("능력치")]
     public float Speed = 3;
+    public float MaxSpeed = 5;
+    public float MinSpeed = 1;
+
+    [Header("이동범위")]
     public float MinX = -2;
     public float MaxX = 2;
     public float MinY = -2;
@@ -29,8 +34,8 @@ public class PlayerMove : MonoBehaviour
     {
         // 1. 키보드 입력을 감지한다.
         // 유니티에서는 Input이라고 하는 모듈이 입력에 관한 모든것을 담당하다.
-        float h = Input.GetAxis("Horizontal"); // 수평 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다.
-        float v = Input.GetAxis("Vertical");   // 수직 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다.
+        float h = Input.GetAxisRaw("Horizontal"); // 수평 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다.
+        float v = Input.GetAxisRaw("Vertical");   // 수직 입력에 대한 값을 -1 ~ 0 ~ 1로 가져온다.
 
         Debug.Log($"h: {h}, v; {v}");
 
@@ -60,11 +65,11 @@ public class PlayerMove : MonoBehaviour
         
         if (newPosition.x < MinX)
         {
-            newPosition.x = MinX;
+            newPosition.x = MaxX;
         }
         else if (newPosition.x > MaxX)
         {
-            newPosition.x = MaxX;
+            newPosition.x = MinX;
         }
 
         if (newPosition.y < MinY)
@@ -75,6 +80,22 @@ public class PlayerMove : MonoBehaviour
         {
             newPosition.y = MaxY;
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            for (int i = 0; i < MaxSpeed; i++)
+            {
+                Speed += i * Time.deltaTime;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            for (int i = 0; i < MinSpeed; i++)
+            {
+                Speed -= i * Time.deltaTime;
+            }
+        }
+
 
         transform.position = newPosition; // 새로운 위치로 갱신
       }
