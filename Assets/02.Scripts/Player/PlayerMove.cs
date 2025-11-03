@@ -14,7 +14,7 @@ public class PlayerMove : MonoBehaviour
     // 필요 속성:
     [Header("능력치")]
     public float Speed = 3;
-    public float MaxSpeed = 5;
+    public float MaxSpeed = 10;
     public float MinSpeed = 1;
 
     [Header("이동범위")]
@@ -39,9 +39,27 @@ public class PlayerMove : MonoBehaviour
 
         Debug.Log($"h: {h}, v; {v}");
 
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Speed++;
+
+        }
+        else if(Input.GetKeyDown(KeyCode.E))
+        {
+            Speed--;
+
+        }   
+
+        Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed);
+
         // 2. 입력으로부터 방향을 구한다.
         // 벡터: 크기와 방향을 표현하는 물리 개념
         Vector2 direction = new Vector2(h, v);
+
+        // 2-1. 방향을 크기 1로 만드는 정규화를 한다.
+        direction.Normalize();
+        // direction = direction.normalized; // 위의 한줄과 동일한 기능
+
         Debug.Log($"direction: {direction.x}, {direction.y}");
 
         // 3. 그 방향으로 이동을 한다.
@@ -81,20 +99,20 @@ public class PlayerMove : MonoBehaviour
             newPosition.y = MaxY;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            for (int i = 0; i < MaxSpeed; i++)
-            {
-                Speed += i * Time.deltaTime;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            for (int i = 0; i < MinSpeed; i++)
-            {
-                Speed -= i * Time.deltaTime;
-            }
-        }
+       //  if (Input.GetKeyDown(KeyCode.Q))
+       //  {
+       //     for (int i = 0; i < MaxSpeed; i++)
+       //     {
+       //        Speed += i * Time.deltaTime;
+       //    }
+       // }
+       // else if (Input.GetKeyDown(KeyCode.E))
+       // {
+       //    for (int i = 3; i > MinSpeed; i--)
+       //   {
+       //         Speed -= i * Time.deltaTime;
+       //     }
+       //  }
 
 
         transform.position = newPosition; // 새로운 위치로 갱신
