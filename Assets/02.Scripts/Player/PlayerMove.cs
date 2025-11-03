@@ -1,60 +1,81 @@
 using UnityEngine;
 
-// ÇÃ·¹ÀÌ¾î ÀÌµ¿
+// í”Œë ˆì´ì–´ ì´ë™
 public class PlayerMove : MonoBehaviour
 {
-    // ¸ñÇ¥
-    // "Å°º¸µå ÀÔ·Â"¿¡ µû¶ó "¹æÇâ"À» ±¸ÇÏ°í ±× ¹æÇâÀ¸·Î ÀÌµ¿½ÃÅ°°í ½Í´Ù.
+    // ëª©í‘œ
+    // "í‚¤ë³´ë“œ ìž…ë ¥"ì— ë”°ë¼ "ë°©í–¥"ì„ êµ¬í•˜ê³  ê·¸ ë°©í–¥ìœ¼ë¡œ ì´ë™ì‹œí‚¤ê³  ì‹¶ë‹¤.
 
-    // ±¸Çö ¼ø¼­:
-    // 1. Å°º¸µå ÀÔ·Â
-    // 2. ¹æÇâ ±¸ÇÏ´Â ¹æ¹ý
-    // 3. ÀÌµ¿
+    // êµ¬í˜„ ìˆœì„œ:
+    // 1. í‚¤ë³´ë“œ ìž…ë ¥
+    // 2. ë°©í–¥ êµ¬í•˜ëŠ” ë°©ë²•
+    // 3. ì´ë™
 
-    // ÇÊ¿ä ¼Ó¼º:
+    // í•„ìš” ì†ì„±:
     public float Speed = 3;
-
+    public float MinX = -2;
+    public float MaxX = 2;
+    public float MinY = -2;
+    public float MaxY = 0;
 
     private void Start()
     {
-        
+
     }
-    
-    
-    // °ÔÀÓ ¿ÀºêÁ§Æ®°¡ °ÔÀÓÀ» ½ÃÀÛ ÈÄ ÃÖ´ëÇÑ ¸¹ÀÌ
+
+
+    // ê²Œìž„ ì˜¤ë¸Œì íŠ¸ê°€ ê²Œìž„ì„ ì‹œìž‘ í›„ ìµœëŒ€í•œ ë§Žì´
     private void Update()
     {
-        // 1. Å°º¸µå ÀÔ·ÂÀ» °¨ÁöÇÑ´Ù.
-        // À¯´ÏÆ¼¿¡¼­´Â InputÀÌ¶ó°í ÇÏ´Â ¸ðµâÀÌ ÀÔ·Â¿¡ °üÇÑ ¸ðµç°ÍÀ» ´ã´çÇÏ´Ù.
-        float h = Input.GetAxis("Horizontal"); // ¼öÆò ÀÔ·Â¿¡ ´ëÇÑ °ªÀ» -1 ~ 0 ~ 1·Î °¡Á®¿Â´Ù.
-        float v = Input.GetAxis("Vertical");   // ¼öÁ÷ ÀÔ·Â¿¡ ´ëÇÑ °ªÀ» -1 ~ 0 ~ 1·Î °¡Á®¿Â´Ù.
+        // 1. í‚¤ë³´ë“œ ìž…ë ¥ì„ ê°ì§€í•œë‹¤.
+        // ìœ ë‹ˆí‹°ì—ì„œëŠ” Inputì´ë¼ê³  í•˜ëŠ” ëª¨ë“ˆì´ ìž…ë ¥ì— ê´€í•œ ëª¨ë“ ê²ƒì„ ë‹´ë‹¹í•˜ë‹¤.
+        float h = Input.GetAxis("Horizontal"); // ìˆ˜í‰ ìž…ë ¥ì— ëŒ€í•œ ê°’ì„ -1 ~ 0 ~ 1ë¡œ ê°€ì ¸ì˜¨ë‹¤.
+        float v = Input.GetAxis("Vertical");   // ìˆ˜ì§ ìž…ë ¥ì— ëŒ€í•œ ê°’ì„ -1 ~ 0 ~ 1ë¡œ ê°€ì ¸ì˜¨ë‹¤.
 
         Debug.Log($"h: {h}, v; {v}");
 
-        // 2. ÀÔ·ÂÀ¸·ÎºÎÅÍ ¹æÇâÀ» ±¸ÇÑ´Ù.
-        // º¤ÅÍ: Å©±â¿Í ¹æÇâÀ» Ç¥ÇöÇÏ´Â ¹°¸® °³³ä
+        // 2. ìž…ë ¥ìœ¼ë¡œë¶€í„° ë°©í–¥ì„ êµ¬í•œë‹¤.
+        // ë²¡í„°: í¬ê¸°ì™€ ë°©í–¥ì„ í‘œí˜„í•˜ëŠ” ë¬¼ë¦¬ ê°œë…
         Vector2 direction = new Vector2(h, v);
         Debug.Log($"direction: {direction.x}, {direction.y}");
 
-        // 3. ±× ¹æÇâÀ¸·Î ÀÌµ¿À» ÇÑ´Ù.
-        Vector2 position = transform.position;  // ÇöÀç À§Ä¡
+        // 3. ê·¸ ë°©í–¥ìœ¼ë¡œ ì´ë™ì„ í•œë‹¤.
+        Vector2 position = transform.position;  // í˜„ìž¬ ìœ„ì¹˜
 
-        // »õ·Î¿î À§Ä¡ = ÇöÀç À§Ä¡ + (¹æÇâ * ¼Ó·Â) * ½Ã°£
-        // »õ·Î¿î À§Ä¡ = ÇöÀç À§Ä¡ + ¼Óµµ * ½Ã°£
+        // ìƒˆë¡œìš´ ìœ„ì¹˜ = í˜„ìž¬ ìœ„ì¹˜ + (ë°©í–¥ * ì†ë ¥) * ì‹œê°„
+        // ìƒˆë¡œìš´ ìœ„ì¹˜ = í˜„ìž¬ ìœ„ì¹˜ + ì†ë„ * ì‹œê°„
 
-        //      »õ·Î¿î À§Ä¡   ÇöÀç À§Ä¡    ¹æÇâ      ¼Ó·Â
-        Vector2 newPosition = position + direction * Speed * Time.deltaTime;                    // »õ·Î¿î À§Ä¡
+        //      ìƒˆë¡œìš´ ìœ„ì¹˜   í˜„ìž¬ ìœ„ì¹˜    ë°©í–¥      ì†ë ¥
+        Vector2 newPosition = position + direction * Speed * Time.deltaTime;                    // ìƒˆë¡œìš´ ìœ„ì¹˜
 
-        // Time.deltaTime: ÀÌÀü ÇÁ·¹ÀÓÀ¸·ÎºÎÅÍ ÇöÀç ÇÁ·¹ÀÓ±îÁö ½Ã°£ÀÌ ¾ó¸¶³ª Èê·¶´ÂÁö.. ³ªÅ¸³»´Â °ª
-        //                 1ÃÊ  /  fps °ª°ú ºñ½ÁÇÏ´Ù.
+        // Time.deltaTime: ì´ì „ í”„ë ˆìž„ìœ¼ë¡œë¶€í„° í˜„ìž¬ í”„ë ˆìž„ê¹Œì§€ ì‹œê°„ì´ ì–¼ë§ˆë‚˜ í˜ë €ëŠ”ì§€.. ë‚˜íƒ€ë‚´ëŠ” ê°’
+        //                 1ì´ˆ  /  fps ê°’ê³¼ ë¹„ìŠ·í•˜ë‹¤.
 
-        // ÀÌµ¿¼Óµµ : 10
-        // ÄÄÇ»ÅÍ1 :  50FPS : Update -> ÃÊ´ç 50¹ø  ½ÇÇà -> 10 * 50  = 500   * Time.deltaTime  = µÎ°³ÀÇ °ªÀÌ °°¾ÆÁø´Ù.
-        // ÄÄÇ»ÅÍ2 : 100FPS : Update -> ÃÊ´ç 100¹ø ½ÇÇà -> 10 * 100 = 1000  * Time.deltaTime
-        // -> ¹ë·±½º¸¦ ÇÊ¿ä·ÎÇÏ´Â °÷¿¡ ´Ù ÇØÁà¾ßÇÑ´Ù.(ÀÌµ¿¼Óµµ, È¸Àü, È®´ëÃà¼Ò µîµî)
-        // ÄÄÇ»ÅÍ ¼º´É¿¡ µû¶ó °°Àº Ä³¸¯ÅÍ¶óµµ ÀÌµ¿¼Óµµ°¡ ´Þ¶óÁú ¼ö ÀÖ¾î¼­ Time.deltaTime¸¦ °öÇØÁÜÀ¸·Î½á ¶È°°ÀÌ °¥ ¼ö ÀÖµµ·Ï ÇØÁØ´Ù.
+        // ì´ë™ì†ë„ : 10
+        // ì»´í“¨í„°1 :  50FPS : Update -> ì´ˆë‹¹ 50ë²ˆ  ì‹¤í–‰ -> 10 * 50  = 500   * Time.deltaTime  = ë‘ê°œì˜ ê°’ì´ ê°™ì•„ì§„ë‹¤.
+        // ì»´í“¨í„°2 : 100FPS : Update -> ì´ˆë‹¹ 100ë²ˆ ì‹¤í–‰ -> 10 * 100 = 1000  * Time.deltaTime
+        // -> ë°¸ëŸ°ìŠ¤ë¥¼ í•„ìš”ë¡œí•˜ëŠ” ê³³ì— ë‹¤ í•´ì¤˜ì•¼í•œë‹¤.(ì´ë™ì†ë„, íšŒì „, í™•ëŒ€ì¶•ì†Œ ë“±ë“±)
+        // ì»´í“¨í„° ì„±ëŠ¥ì— ë”°ë¼ ê°™ì€ ìºë¦­í„°ë¼ë„ ì´ë™ì†ë„ê°€ ë‹¬ë¼ì§ˆ ìˆ˜ ìžˆì–´ì„œ Time.deltaTimeë¥¼ ê³±í•´ì¤Œìœ¼ë¡œì¨ ë˜‘ê°™ì´ ê°ˆ ìˆ˜ ìžˆë„ë¡ í•´ì¤€ë‹¤.
+        
+        
+        if (newPosition.x < MinX)
+        {
+            newPosition.x = MinX;
+        }
+        else if (newPosition.x > MaxX)
+        {
+            newPosition.x = MaxX;
+        }
 
+        if (newPosition.y < MinY)
+        {
+            newPosition.y = MinY;
+        }
+        else if (newPosition.y > MaxY)
+        {
+            newPosition.y = MaxY;
+        }
 
-        transform.position = newPosition;       // »õ·Î¿î À§Ä¡·Î °»½Å
+        transform.position = newPosition; // ìƒˆë¡œìš´ ìœ„ì¹˜ë¡œ ê°±ì‹ 
+      }
     }
-}
