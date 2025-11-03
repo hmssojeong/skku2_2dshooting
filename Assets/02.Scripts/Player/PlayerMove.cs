@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
     public float Speed = 3;
     public float MaxSpeed = 10;
     public float MinSpeed = 1;
+    float ShiftSpeed = 2f;
+
 
     [Header("이동범위")]
     public float MinX = -2;
@@ -25,7 +27,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-
+       
     }
 
 
@@ -39,18 +41,32 @@ public class PlayerMove : MonoBehaviour
 
         Debug.Log($"h: {h}, v; {v}");
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             Speed++;
-
         }
-        else if(Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
             Speed--;
+        }
 
-        }   
-
+        // 1 ~ 10
         Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed);
+
+        float finalspeed = Speed; // 지역 변수
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            // 1.2 ~ 12
+            finalspeed = finalspeed * ShiftSpeed;
+        }
+ 
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            Vector2 target = Vector2.zero; // 원점
+            transform.position = Vector2.MoveTowards(transform.position, target, finalspeed * Time.deltaTime);
+        }
+
 
         // 2. 입력으로부터 방향을 구한다.
         // 벡터: 크기와 방향을 표현하는 물리 개념
@@ -65,11 +81,14 @@ public class PlayerMove : MonoBehaviour
         // 3. 그 방향으로 이동을 한다.
         Vector2 position = transform.position;  // 현재 위치
 
+        // 쉬운버전 ->대신에 정밀한 제어가 어렵다.
+        // transform.Translate(translation: direction * Speed * Time.deltaTime);
+
         // 새로운 위치 = 현재 위치 + (방향 * 속력) * 시간
         // 새로운 위치 = 현재 위치 + 속도 * 시간
 
         //      새로운 위치   현재 위치    방향      속력
-        Vector2 newPosition = position + direction * Speed * Time.deltaTime;                    // 새로운 위치
+        Vector2 newPosition = position + direction * finalspeed * Time.deltaTime;    // 새로운 위치
 
         // Time.deltaTime: 이전 프레임으로부터 현재 프레임까지 시간이 얼마나 흘렀는지.. 나타내는 값
         //                 1초  /  fps 값과 비슷하다.
@@ -79,8 +98,8 @@ public class PlayerMove : MonoBehaviour
         // 컴퓨터2 : 100FPS : Update -> 초당 100번 실행 -> 10 * 100 = 1000  * Time.deltaTime
         // -> 밸런스를 필요로하는 곳에 다 해줘야한다.(이동속도, 회전, 확대축소 등등)
         // 컴퓨터 성능에 따라 같은 캐릭터라도 이동속도가 달라질 수 있어서 Time.deltaTime를 곱해줌으로써 똑같이 갈 수 있도록 해준다.
-        
-        
+
+
         if (newPosition.x < MinX)
         {
             newPosition.x = MaxX;
@@ -97,24 +116,9 @@ public class PlayerMove : MonoBehaviour
         else if (newPosition.y > MaxY)
         {
             newPosition.y = MaxY;
+
         }
 
-       //  if (Input.GetKeyDown(KeyCode.Q))
-       //  {
-       //     for (int i = 0; i < MaxSpeed; i++)
-       //     {
-       //        Speed += i * Time.deltaTime;
-       //    }
-       // }
-       // else if (Input.GetKeyDown(KeyCode.E))
-       // {
-       //    for (int i = 3; i > MinSpeed; i--)
-       //   {
-       //         Speed -= i * Time.deltaTime;
-       //     }
-       //  }
-
-
         transform.position = newPosition; // 새로운 위치로 갱신
-      }
     }
+}
