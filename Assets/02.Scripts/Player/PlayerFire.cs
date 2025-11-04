@@ -16,14 +16,21 @@ public class PlayerFire : MonoBehaviour
     public const float CoolTime = 0.6f;
     private float _coolTimer;
 
+    [Header("자동모드")]
+    public bool AutoMode = false;
+
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) AutoMode = true;
+        if (Input.GetKeyDown(KeyCode.Alpha2)) AutoMode = false;
+
+
         _coolTimer -= Time.deltaTime;
         if (_coolTimer > 0) return;     // 조기 리턴
 
-        // 1. 발사 버튼을 누르고 있으면..
-        if (Input.GetKey(KeyCode.Space))
+        // 1. 발사 버튼을 누르고 있거나 (혹은) or == || 자동 모드라면...
+        if (Input.GetKey(KeyCode.Space) || AutoMode)
         {
             // 발사하고 나면 쿨타이머를 초기화
             _coolTimer = CoolTime;
