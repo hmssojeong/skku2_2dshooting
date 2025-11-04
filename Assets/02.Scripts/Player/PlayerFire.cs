@@ -7,10 +7,13 @@ public class PlayerFire : MonoBehaviour
     // 필요 속성
     [Header("총알 프리팹")] // 복사해올 총알 프리팹 게임 오브젝트
     public GameObject BulletPrefab;
+    public GameObject SubBulletPrefab;
 
     [Header("총구")]
     public Transform FirePosition;
     public float FireOffset = 0.3f;
+    public Transform SubFirePositionLeft;
+    public Transform SubFirePositionRight;
 
     [Header("쿨타임")]
     public const float CoolTime = 0.6f;
@@ -39,17 +42,33 @@ public class PlayerFire : MonoBehaviour
             // 클래스 -> 객체(속성+기능) -> 메모리에 로드된 객체를 인스턴스
             //                        ㄴ 인스턴스화
 
-            // 2. 프리팹으로부터 총알(게임 오브젝트)을 생성한다.
-            GameObject bullet1 = Instantiate(BulletPrefab);
-            GameObject bullet2 = Instantiate(BulletPrefab);
+            // 메인 총알 생성
+            MakeBullets();
 
-            // 3. 총알의 위치를 총구 위치로 바꾸기 
-            bullet1.transform.position = FirePosition.position + new Vector3(-FireOffset, 0, 0);
-            bullet2.transform.position = FirePosition.position + new Vector3(FireOffset, 0, 0);
+            // 보조 총알 생성
+            MakeSubBullets();
         }
-
-
     }
 
+    private void MakeBullets()
+    {
+        // 2. 프리팹으로부터 총알(게임 오브젝트)을 생성한다.
+        GameObject bullet1 = Instantiate(BulletPrefab);
+        GameObject bullet2 = Instantiate(BulletPrefab);
 
+        // 3. 총알의 위치를 총구 위치로 바꾸기 
+        bullet1.transform.position = FirePosition.position + new Vector3(-FireOffset, 0, 0);
+        bullet2.transform.position = FirePosition.position + new Vector3(FireOffset, 0, 0);
+    }
+
+    private void MakeSubBullets()
+    {
+        // 2. 프리팹으로부터 총알(게임 오브젝트)을 생성한다.
+        GameObject bullet1 = Instantiate(SubBulletPrefab);
+        GameObject bullet2 = Instantiate(SubBulletPrefab);
+
+        // 3. 총알의 위치를 총구 위치로 바꾸기 
+        bullet1.transform.position = SubFirePositionLeft.position;
+        bullet2.transform.position = SubFirePositionRight.position;
+    }
 }

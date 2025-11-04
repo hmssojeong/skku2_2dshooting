@@ -38,6 +38,6 @@ public class Bullet : MonoBehaviour
         Vector2 position = transform.position;
         Vector2 newPosition = position + direction * _speed * Time.deltaTime;
         transform.position = newPosition;
-
+        
     }
 }
