@@ -7,10 +7,10 @@ public class Player : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
-
+       
         if (_health <= 0)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

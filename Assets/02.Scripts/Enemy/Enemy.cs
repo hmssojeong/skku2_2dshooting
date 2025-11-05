@@ -30,8 +30,10 @@ public class Enemy : MonoBehaviour
         if (!other.gameObject.CompareTag("Player")) return;
 
         Player player = other.gameObject.GetComponent<Player>();
+        if (player == null) return;
+
         player.Hit(Damage);
 
-        Destroy(other.gameObject);    // 나죽자.
+        Destroy(gameObject);    // 나죽자.
     }
 }
