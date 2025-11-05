@@ -79,7 +79,7 @@ public class PlayerMove : MonoBehaviour
         direction.Normalize();
         // direction = direction.normalized;
 
-        Debug.Log($"direction: {direction.x}, {direction.y}");
+        // Debug.Log($"direction: {direction.x}, {direction.y}");
 
         // 오른쪽        (1, 0)
         // 위쪽          0. 1)

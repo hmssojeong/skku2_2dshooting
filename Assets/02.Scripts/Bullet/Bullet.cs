@@ -40,4 +40,23 @@ public class Bullet : MonoBehaviour
         transform.position = newPosition;
         
     }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        // 총알은 Enemy와만 충돌 이벤트를 처리한다.
+        if (other.CompareTag("Enemy") == false) return;
+
+        // GameObject enemyGameObject = other.gameObject;
+        
+        // GetComponent는 게임오브젝트에 붙어있는 컴포넌트를 가져올 수 있다.
+        Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+        Debug.Log(enemy.Health);
+        enemy.Health -= 60f;
+        if (enemy.Health <= 0)
+
+        Destroy(gameObject);
+        Destroy(other.gameObject);
+
+    }
 }
