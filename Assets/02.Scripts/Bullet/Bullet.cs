@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other) 
     {
         // 총알은 Enemy와만 충돌 이벤트를 처리한다.
         if (other.CompareTag("Enemy") == false) return;

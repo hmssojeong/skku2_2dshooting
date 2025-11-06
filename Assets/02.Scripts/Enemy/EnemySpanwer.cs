@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
     // 프리팹을 참조할 배열
     public GameObject[] EnemyPrefabs;
 
+    public int[] EnemySpawnRate;
+
 
     public float CoolTime = 2f;
     private float _timer;
@@ -30,7 +32,8 @@ public class EnemySpawner : MonoBehaviour
         {
             _timer = 0f;
 
-            GameObject enemyObject = Instantiate(EnemyPrefabs[2]);       // 70%
+            
+            GameObject enemyObject = Instantiate(SelectRamdomEnemy());       // 70%
             enemyObject.transform.position = transform.position;
 
             // 3. 에너미프리팹으로부터 생성
@@ -45,6 +48,29 @@ public class EnemySpawner : MonoBehaviour
                 enemyObject.transform.position = transform.position;
             }*/
         }
+    }
+
+    private GameObject SelectRamdomEnemy()
+    {
+        int randomNumber = Random.Range(1, 101);
+
+
+    
+         for (int i = 0; i < EnemyPrefabs.Length; i++)
+         {
+            randomNumber -= EnemySpawnRate[i];
+            
+            if (randomNumber <= 0)
+            {
+               // 95        70  
+               //    25     20
+               //     5      10  =i
+               return EnemyPrefabs[i];
+            }
+            
+         }
+
+        return EnemyPrefabs[0];
     }
 
 }

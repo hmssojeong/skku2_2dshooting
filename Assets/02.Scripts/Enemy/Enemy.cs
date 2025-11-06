@@ -6,7 +6,7 @@ public enum EEnemyType
 {
     Directional,             // 0
     Trace,                   // 1
-
+    MovePause                // 2
 }
 
 public class Enemy : MonoBehaviour
@@ -22,6 +22,13 @@ public class Enemy : MonoBehaviour
     public float CoolTime = 2f;
     private float _timer;
 
+    [Header("적 움직임 시간")]
+    public float MoveDuration = 0.5f; // 첫 번쨰 전체 움직이는 시간
+    private float _currentFirstMoveTime = 0;    //시작할 때부터 멈추기 전까지의 시간
+    public float StopDuration = 2f; // 전체 멈추는 시간
+    private float _currentStopTime = 0;     //멈추기 시작했을 때 현재까지 멈춘 시간
+
+
     private void Update()
     {
         // 두가지 타입
@@ -32,6 +39,10 @@ public class Enemy : MonoBehaviour
         else if (Type == EEnemyType.Trace)
         {
             MoveTrace();
+        }
+        else if (Type == EEnemyType.MovePause)
+        {
+            MovePause();
         }
 
         // 0. 타입에 따라 동작이 다르네?              -> 함수로 쪼개자..
@@ -59,6 +70,24 @@ public class Enemy : MonoBehaviour
 
         // 3. 방향에 맞게 이동한다.
         transform.Translate(direction * Speed * Time.deltaTime);
+    }
+
+    private void MovePause()
+    {
+        if (_currentFirstMoveTime <= MoveDuration)
+        {
+            _currentFirstMoveTime += Time.deltaTime;
+            transform.position += Vector3.down * Speed * Time.deltaTime;
+            return;
+        }
+
+        if (_currentStopTime <= StopDuration)
+        {
+            _currentStopTime += Time.deltaTime;
+            return;
+        }
+
+        transform.position += Vector3.down * Speed * Time.deltaTime;
     }
 
 
