@@ -1,6 +1,13 @@
 using System;
 using UnityEngine;
 
+// Enum : 열거형 : 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어(그룹) 관리하는 표현 방식
+public enum EEnemyType
+{
+    Directional,   // 0
+    Trace,         // 1
+}
+
 public class Enemy : MonoBehaviour
 {
     [Header("스탯")]
@@ -8,9 +15,44 @@ public class Enemy : MonoBehaviour
     public float Damage = 1;
     private float _health = 100f;
 
+    [Header("적 타입")]
+    public EEnemyType Type;
+
     private void Update()
     {
+        // 두가지 타입
+        if (Type == EEnemyType.Directional)
+        {
+            MoveDirectional();
+        }
+        if (Type == EEnemyType.Trace)
+        {
+            MoveTrace();
+        }
+
+        // 0. 타입에 따라 동작이 다르네?             -> Enemy 클래스 안에서 함수로 쪼개자..
+        // 1. 함수가 너무 많아질거 같네?             -> 클래스로 쪼개는게 좋다.
+        // 2. 쪼개고 나니까 똑같은 기능/속성이 있네  -> 상속
+        // 3. 상속을 하자니 책임이 너무 크네..       -> 조합 -> <재현>님 코드 참고하기
+    }
+
+    private void MoveDirectional()
+    {
         Vector2 direction = Vector2.down;
+        transform.Translate(direction * (Speed * Time.deltaTime));
+    }
+
+    private void MoveTrace()
+    {
+        // 1. 플레이어의 위치를 구한다.
+        GameObject playerObject = GameObject.FindWithTag("Player");
+        Vector2 playerPosition = playerObject.transform.position;
+
+        // 2. 위치에 따라 방향을 구한다.
+        Vector2 direction = playerPosition - (Vector2)transform.position;
+        direction.Normalize();  // 방향을 정규화한다.
+
+        // 3. 방향에 맞게 이동한다.
         transform.Translate(direction * (Speed * Time.deltaTime));
     }
 

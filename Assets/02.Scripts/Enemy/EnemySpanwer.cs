@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -16,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
         // 쿨타임을 1과 3사이로 랜덤하게 지정한다.
         float randomCoolTime = Random.Range(MinCoolTime, MaxCoolTime);
         CoolTime = randomCoolTime;
+
     }
 
 
@@ -33,7 +35,12 @@ public class EnemySpawner : MonoBehaviour
             // 3. 에너미프리팹으로부터 생성
             GameObject enemyObject = Instantiate(EnemyPrefab);
             enemyObject.transform.position = transform.position;
+
+        
+
         }
+
+
     }
 
 }
