@@ -332,7 +332,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 3074432886884548861, guid: 45c4e95c62fee4148bc73052f16d072a, type: 3}
-  CoolTime: 0.6
+  CoolTime: 2
+  secondnum: 1
 --- !u!1 &616058159
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 3074432886884548861, guid: 45c4e95c62fee4148bc73052f16d072a, type: 3}
-  CoolTime: 1.9
+  CoolTime: 2
+  secondnum: 1
 --- !u!4 &753673945
 Transform:
   m_ObjectHideFlags: 0
@@ -774,7 +776,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 3074432886884548861, guid: 45c4e95c62fee4148bc73052f16d072a, type: 3}
-  CoolTime: 1.2
+  CoolTime: 2
+  secondnum: 1
 --- !u!4 &1593296199
 Transform:
   m_ObjectHideFlags: 0

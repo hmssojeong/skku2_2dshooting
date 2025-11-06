@@ -7,12 +7,14 @@ public class EnemySpawner : MonoBehaviour
     public GameObject EnemyPrefab;
     public float CoolTime = 2f;
     private float _timer;
+    public float MinCoolTime = 1f;
+    public float MaxCoolTime = 3f;
 
 
     private void Start()
     {
-        // 쿨타임을 1과 2사이로 랜덤하게 지정한다.
-        float randomCoolTime = Random.Range(1f, 2f);
+        // 쿨타임을 1과 3사이로 랜덤하게 지정한다.
+        float randomCoolTime = Random.Range(MinCoolTime, MaxCoolTime);
         CoolTime = randomCoolTime;
     }
 
@@ -25,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
         // 2. 쿨타임이 되면
         if (_timer >= CoolTime)
         {
-            CoolTime = Random.Range(1f, 3f);
+            CoolTime = Random.Range(MinCoolTime, MaxCoolTime); //매직넘버로
             _timer = 0f;
 
             // 3. 에너미프리팹으로부터 생성
