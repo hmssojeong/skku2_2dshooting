@@ -30,8 +30,11 @@ public class EnemySpawner : MonoBehaviour
         {
             _timer = 0f;
 
+            GameObject enemyObject = Instantiate(EnemyPrefabs[2]);       // 70%
+            enemyObject.transform.position = transform.position;
+
             // 3. 에너미프리팹으로부터 생성
-            if (UnityEngine.Random.Range(0, 100) > 70)
+            /*if (UnityEngine.Random.Range(0, 100) > 70)
             {
                 GameObject enemyObject = Instantiate(EnemyPrefabs[(int)EEnemyType.Directional]);       // 70%
                 enemyObject.transform.position = transform.position;
@@ -40,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 GameObject enemyObject = Instantiate(EnemyPrefabs[(int)EEnemyType.Trace]);             // 30%
                 enemyObject.transform.position = transform.position;
-            }
+            }*/
         }
     }
 

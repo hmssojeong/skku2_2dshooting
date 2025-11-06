@@ -6,6 +6,7 @@ public enum EEnemyType
 {
     Directional,             // 0
     Trace,                   // 1
+
 }
 
 public class Enemy : MonoBehaviour
@@ -17,6 +18,9 @@ public class Enemy : MonoBehaviour
 
     [Header("적 타입")]
     public EEnemyType Type;
+
+    public float CoolTime = 2f;
+    private float _timer;
 
     private void Update()
     {
@@ -56,7 +60,6 @@ public class Enemy : MonoBehaviour
         // 3. 방향에 맞게 이동한다.
         transform.Translate(direction * Speed * Time.deltaTime);
     }
-
 
 
     public void Hit(float damage)
