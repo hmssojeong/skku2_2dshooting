@@ -4,8 +4,8 @@ using UnityEngine;
 // Enum : 열거형 : 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어(그룹) 관리하는 표현 방식
 public enum EEnemyType
 {
-    Directional,
-    Trace,
+    Directional,             // 0
+    Trace,                   // 1
 }
 
 public class Enemy : MonoBehaviour
@@ -34,23 +34,19 @@ public class Enemy : MonoBehaviour
         // 1. 함수가 너무 많아질거 같네?  (OCP위반)    -> 클래스로 쪼개자..
         // 2. 쪼개고 나니까 똑같은 기능/속성이 있네     -> 상속
         // 3. 상속을 하자니 책임이 너무 크네(SRP위반)   -> 조합
-
     }
 
     private void MoveDirectional()
     {
         Vector2 direction = Vector2.down;
         transform.Translate(direction * (Speed * Time.deltaTime));
-
     }
 
     private void MoveTrace()
     {
-
         // 1. 플레이어의 위치를 구한다.
         GameObject playerObject = GameObject.FindWithTag("Player");
         if (playerObject == null) return;
-
         Vector2 playerPosition = playerObject.transform.position;
 
         // 2. 위치에 따라 방향을 구한다.
@@ -59,8 +55,6 @@ public class Enemy : MonoBehaviour
 
         // 3. 방향에 맞게 이동한다.
         transform.Translate(direction * Speed * Time.deltaTime);
-
-        
     }
 
 
