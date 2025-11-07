@@ -1,20 +1,54 @@
+using System;
 using UnityEngine;
+
+public enum EItemType
+{
+    MoveSpeedUp,
+    HealthUp,
+    AttackSpeedUp,
+}
 
 public class Item : MonoBehaviour
 {
-    // 충돌 트리거가 일어났을 때
-    // 만약 플레이어 태그라면
-    // 플레이어 게임오브젝트의 플레이어무브 컴포넌트를 읽어온다.
-    // 스피드를 +Value 해준다.
-    // 나를 삭제
+    [Header("아이템 타입")]
+    public EItemType Type;
+    public float Value;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Player")) return;
+        if (other.CompareTag("Player") == false) return;
 
-        PlayerMove playerMove = other.GetComponent<PlayerMove>();
-        playerMove.SpeedUp(1);
+        Apply(other);
 
-        Destroy(this.gameObject);
+        Destroy(gameObject);
+    }
+
+    private void Apply(Collider2D other)
+    {
+        // 아이템 타입에 따라서 다르게 적용
+        switch (Type)
+        {
+            case EItemType.MoveSpeedUp:
+                {
+                    PlayerMove playerMove = other.GetComponent<PlayerMove>();
+                    playerMove.SpeedUp(Value);
+                    break;
+                }
+
+            case EItemType.AttackSpeedUp:
+                {
+                    PlayerFire playerFire = other.GetComponent<PlayerFire>();
+                    playerFire.SpeedUp(Value);
+                    break;
+                }
+
+            case EItemType.HealthUp:
+                {
+                    Player player = other.GetComponent<Player>();
+                    player.Heal(Value);
+                    break;
+                }
+        }
+
     }
 }

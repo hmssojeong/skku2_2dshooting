@@ -15,9 +15,10 @@ public class PlayerMove : MonoBehaviour
     // 필요 속성:
     [Header("능력치")]
     private float _speed = 3f;
- 
-/*    public float MaxSpeed = 10;
-    public float MinSpeed = 1;*/
+
+
+    /*    public float MaxSpeed = 10;
+        public float MinSpeed = 1;*/
     public float ShiftSpeed = 1.2f;
 
     [Header("시작위치")]
@@ -36,12 +37,13 @@ public class PlayerMove : MonoBehaviour
         _originPosition = transform.position;
     }
 
-    public void SpeedUp(int value)
+    public void SpeedUp(float value)
     {
         _speed += value;
 
         // _speed = Mathf.Min(_speed, MaxSpeed);
     }
+
 
     private void Update()
     {

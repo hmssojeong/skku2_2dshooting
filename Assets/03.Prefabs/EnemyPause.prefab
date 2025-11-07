@@ -171,3 +171,4 @@ MonoBehaviour:
   CoolTime: 2
   MoveDuration: 0.5
   StopDuration: 2
+  ItemObject: {fileID: 4857019069101695734, guid: be233e9dec77e4d4cb905277fc856f38, type: 3}

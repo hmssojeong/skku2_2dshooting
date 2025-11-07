@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 // Enum : 열거형 : 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어(그룹) 관리하는 표현 방식
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
     public float StopDuration = 2f; // 전체 멈추는 시간
     private float _currentStopTime = 0;     //멈추기 시작했을 때 현재까지 멈춘 시간
 
+    public GameObject ItemObject;
 
     private void Update()
     {
@@ -98,7 +100,14 @@ public class Enemy : MonoBehaviour
         if (_health <= 0)
         {
             Destroy(this.gameObject);
+            Create(ItemObject);
         }
+    }
+
+    public void Create(GameObject ItemObject)
+    {
+        Vector3 itemposition = gameObject.transform.position;
+        Instantiate(ItemObject, itemposition, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -111,6 +120,7 @@ public class Enemy : MonoBehaviour
 
         player.Hit(Damage);
 
-        Destroy(gameObject);    // 나죽자.
+        Destroy(gameObject); // 나죽자.
+
     }
 }

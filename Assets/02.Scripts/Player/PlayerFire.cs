@@ -16,7 +16,7 @@ public class PlayerFire : MonoBehaviour
     public Transform SubFirePositionRight;
 
     [Header("쿨타임")]
-    public const float CoolTime = 0.6f;
+    public float CoolTime = 0.6f;
     private float _coolTimer;
 
     [Header("자동모드")]
@@ -48,6 +48,11 @@ public class PlayerFire : MonoBehaviour
             // 보조 총알 생성
             MakeSubBullets();
         }
+    }
+
+    public void SpeedUp (float value)
+    {
+        CoolTime -= value;
     }
 
     private void MakeBullets()
