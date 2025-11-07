@@ -38,7 +38,7 @@ public class Item : MonoBehaviour
         if (_timer <= CoolTime) //2초보다 작거나 같으면
         {
             
-            transform.position += Vector3.zero * Speed * Time.deltaTime; //위치는 그대로
+            transform.position += Vector3.zero; //위치는 그대로
             return;
         }
 
