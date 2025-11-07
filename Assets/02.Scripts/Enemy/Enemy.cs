@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.Rendering;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 // Enum : 열거형 : 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어(그룹) 관리하는 표현 방식
 public enum EEnemyType
@@ -29,7 +30,9 @@ public class Enemy : MonoBehaviour
     public float StopDuration = 2f; // 전체 멈추는 시간
     private float _currentStopTime = 0;     //멈추기 시작했을 때 현재까지 멈춘 시간
 
-    public GameObject ItemObject;
+    [Header("아이템 프리팹")]
+    public GameObject[] ItemPrefabs;
+    public int[] ItemWeights;
 
     private void Update()
     {
@@ -99,15 +102,42 @@ public class Enemy : MonoBehaviour
 
         if (_health <= 0)
         {
+            DropItem();
             Destroy(this.gameObject);
-            Create(ItemObject);
+            
         }
     }
 
-    public void Create(GameObject ItemObject)
+    private void DropItem()
     {
-        Vector3 itemposition = gameObject.transform.position;
-        Instantiate(ItemObject, itemposition, Quaternion.identity);
+        // 50% 확률로 리턴
+        if (Random.Range(0, 2) == 0) return;
+
+        // 가중치의 합
+        // ItemWeight [70, 20, 10]
+        int weightSum = 0; // 100
+        for (int i = 0; i < ItemWeights.Length; ++i)
+        {
+            weightSum += ItemWeights[i];
+        }
+
+        // 0 ~ 100 가중치의 합
+        int randomValue = UnityEngine.Random.Range(0, weightSum); // 80
+
+        //가중치 값을 더해가며 구간을 비교한다.
+        // <            70 -> 0번째 아이템 생성되고
+        // < (70+20)    90 -> 1번째 아이템 생성되고
+        // < (90+10)   105 -> 2번째 아이템이 생성된다.
+        int sum = 0;
+        for ( int i = 0; i < ItemWeights.Length; ++i)
+        {
+            sum += ItemWeights[i];
+            if(randomValue < sum)
+            {
+                Instantiate(ItemPrefabs[i], transform.position, Quaternion.identity);
+            }
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
