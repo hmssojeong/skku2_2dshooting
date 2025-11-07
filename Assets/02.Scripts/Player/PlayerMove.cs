@@ -59,6 +59,7 @@ public class PlayerMove : MonoBehaviour
                 // 1 ~ 10
                 Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed); */
 
+
         float finalSpeed = _speed;
         if (Input.GetKey(KeyCode.LeftShift))
         {
