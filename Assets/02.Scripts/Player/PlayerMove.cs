@@ -61,7 +61,8 @@ public class PlayerMove : MonoBehaviour
         {
             AutoBattle = !AutoBattle;
         }
-
+        // 1. 매프레임 또는 일정 시간 마다 가장 가까운 적 찾는다.
+        FindClosestEnemyByY();
             
             /*      if (Input.GetKeyDown(KeyCode.Q))
                     {
@@ -179,9 +180,6 @@ public class PlayerMove : MonoBehaviour
     }
     private void HandleAutoBattleMove(float speed) //자동전투
     {
-        // 1. 매프레임 또는 일정 시간 마다 가장 가까운 적 찾는다.
-        FindClosestEnemyByY();
-
         // 2. 가장 가까운 적이 있다면 해당 적의 X 위치로 플레이어 X위치를 이동.
         if (closestEnemy == null)
             return;

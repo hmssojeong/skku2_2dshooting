@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool isAutoMode = false;
+
     private float _health = 3;
 
     public void Hit(float damage)
