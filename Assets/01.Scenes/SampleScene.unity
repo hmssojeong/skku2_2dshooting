@@ -743,8 +743,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.88798416, b: 0, a: 1}
+  m_Sprite: {fileID: 1411209677, guid: 6520dda4a70dfbf40a55b7af39ecda4e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -784,7 +784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfca13680488f14f96bef64fb224458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closestEnemy: {fileID: 0}
   ShiftSpeed: 2
   MinX: -2
   MaxX: 2
@@ -896,6 +895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c529cf4c68c336c469b5ffada11242c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAutoMode: 0
 --- !u!1001 &1429383422
 PrefabInstance:
   m_ObjectHideFlags: 0

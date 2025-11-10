@@ -55,7 +55,7 @@ public class Item : MonoBehaviour
         {
             case EItemType.MoveSpeedUp:
                 {
-                    PlayerMove playerMove = other.GetComponent<PlayerMove>();
+                    PlayerManualMove playerMove = other.GetComponent<PlayerManualMove>();
                     playerMove.SpeedUp(Value);
                     break;
                 }
