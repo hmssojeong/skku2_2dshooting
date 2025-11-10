@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -34,6 +35,8 @@ public class PlayerMove : MonoBehaviour
     public float MaxX = 2;
     public float MinY = -5;
     public float MaxY = 0;
+
+    private float _distance = 3f;
 
     [Header("자동전투 설정")]
     public bool AutoBattle = false;
@@ -99,7 +102,7 @@ public class PlayerMove : MonoBehaviour
         private void FindClosestEnemyByY() // 가까운적찾기
         {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); // 적 배열 저장
-            float minDeltaY = Mathf.Infinity; //무한대로 시작하기 때문에 첫번째적갱신
+            float minDeltaY = Mathf.Infinity; //무한대로 시작하기 때문에 첫번째 적갱신
             closestEnemy = null;
 
             foreach (GameObject enemy in enemies)
@@ -107,6 +110,7 @@ public class PlayerMove : MonoBehaviour
                 float deltaY = Mathf.Abs(enemy.transform.position.y - transform.position.y);
                 //플레이어와 적 사이의 y좌표차이 구하기
 
+            // 플레이어와 적사이에 y좌표가 미니보다 작으면 그것은 작은 y좌표값
                 if (deltaY < minDeltaY)
                 {
                     minDeltaY = deltaY;
@@ -179,12 +183,14 @@ public class PlayerMove : MonoBehaviour
         // 2. 가장 가까운 적이 있다면 해당 적의 X 위치로 플레이어 X위치를 이동.
         if (closestEnemy == null)
             return;
-        {
+        
+        
             float targetX = closestEnemy.transform.position.x; // 목표 X 위치
+            float targetY = closestEnemy.transform.position.y;
             Vector2 currentPosition = transform.position; // 현재 플레이어 위치
 
-            transform.position = Vector2.MoveTowards(currentPosition, new Vector2(targetX, currentPosition.y), _speed * Time.deltaTime);
-        }
+            transform.position = Vector2.MoveTowards(currentPosition, new Vector2(targetX, targetY-_distance), _speed * Time.deltaTime);
+        
     }
     private void TranslateToOrigin(float speed)
     {
