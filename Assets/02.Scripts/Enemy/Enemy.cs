@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.Rendering;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using Random = UnityEngine.Random;
 
 // Enum : 열거형 : 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어(그룹) 관리하는 표현 방식
@@ -32,6 +33,17 @@ public class Enemy : MonoBehaviour
     [Header("아이템 프리팹")]
     public GameObject[] ItemPrefabs;
     public int[] ItemWeights;
+
+    private Animator _animator;
+    private Enemy _enemy;
+  
+
+    private void Start()
+    {
+        // 캐싱
+        _enemy = GetComponent<Enemy>();
+        _animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {

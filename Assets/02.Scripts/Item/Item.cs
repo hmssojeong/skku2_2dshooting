@@ -11,43 +11,43 @@ public enum EItemType
 public class Item : MonoBehaviour
 {
     [Header("아이템 타입")]
-    public float Speed;
     public EItemType Type;
     public float Value;
 
-    private float _timer = 0;
-    public float CoolTime = 2f;
+    public float WaitTime = 2f;
+    public float MoveSpeed = 5f;
 
-    public void Update()
+    private GameObject _playerObject;
+    private void Start()
     {
-        _timer += Time.deltaTime; //시간을 더해줘
-        Get();
+        _playerObject = GameObject.FindGameObjectWithTag("Player");
     }
+
+    private void Update()
+    {
+        WaitTime -= Time.deltaTime;
+        if (WaitTime > 0) return;
+
+        // 1. 플레이어를 찾는다.
+        if (_playerObject == null) return;
+
+        // 2. 방향을 구한다.
+        Vector2 direction = _playerObject.transform.position - transform.position;
+
+        // 3. 이동한다.
+        transform.Translate(direction * MoveSpeed * Time.deltaTime);
+    }
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") == false) return;
 
         Apply(other);
-        
+
         Destroy(gameObject);
     }
 
-    private void Get()
-    {
-        if (_timer > CoolTime)
-        {
-            GameObject playerObject = GameObject.FindWithTag("Player");
-            if (playerObject == null) return;
-            Vector2 playerPosition = playerObject.transform.position;
-
-
-            Vector2 direction = playerPosition - (Vector2)transform.position;
-            direction.Normalize();
-
-            transform.Translate(direction * Speed * Time.deltaTime);
-
-        }
-    }
     private void Apply(Collider2D other)
     {
         // 아이템 타입에 따라서 다르게 적용
@@ -55,8 +55,8 @@ public class Item : MonoBehaviour
         {
             case EItemType.MoveSpeedUp:
                 {
-                    PlayerManualMove playerMove = other.GetComponent<PlayerManualMove>();
-                    playerMove.SpeedUp(Value);
+                    PlayerManualMove playerManualMove = other.GetComponent<PlayerManualMove>();
+                    //playerManualMove.SpeedUp(Value);
                     break;
                 }
 
