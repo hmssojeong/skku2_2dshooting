@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 // 플레이어 이동
 public class PlayerMove : MonoBehaviour
@@ -11,6 +13,8 @@ public class PlayerMove : MonoBehaviour
     // 1. 키보드 입력
     // 2. 방향 구하는 방법
     // 3. 이동
+
+    private GameObject closestEnemy = null; // 가장 가까운 적
 
     // 필요 속성:
     [Header("능력치")]
@@ -31,6 +35,9 @@ public class PlayerMove : MonoBehaviour
     public float MinY = -5;
     public float MaxY = 0;
 
+    [Header("자동전투 설정")]
+    public bool AutoBattle = false;
+
     private void Start()
     {
         // 처음 시작 위치 저장
@@ -47,33 +54,68 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        /*      if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    Speed++;
-                }
-                else if (Input.GetKey(KeyCode.E))
-                {
-                    Speed--;
-                }
-
-                // 1 ~ 10
-                Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed); */
-
-
-        float finalSpeed = _speed;
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            // 1.2 ~ 12
-            finalSpeed = finalSpeed * ShiftSpeed;
+            AutoBattle = !AutoBattle;
         }
+        // 1. 매프레임 또는 일정 시간 마다 가장 가까운 적 찾는다.
+        FindClosestEnemyByY();
+            
+            /*      if (Input.GetKeyDown(KeyCode.Q))
+                    {
+                        Speed++;
+                    }
+                    else if (Input.GetKey(KeyCode.E))
+                    {
+                        Speed--;
+                    }
 
-        if (Input.GetKey(KeyCode.R))
+                    // 1 ~ 10
+                    Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed); */
+
+            float finalSpeed = _speed;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                // 1.2 ~ 12
+                finalSpeed = finalSpeed * ShiftSpeed;
+            }
+
+            if (Input.GetKey(KeyCode.R))
+            {
+                // 원점으로 돌아간다.
+                TranslateToOrigin(finalSpeed);
+                return;
+            }
+
+        if (!AutoBattle)
         {
-            // 원점으로 돌아간다.
-            TranslateToOrigin(finalSpeed);
-            return;
+            HandleManualMove(finalSpeed);
         }
+        else
+        {
+            HandleAutoBattleMove(finalSpeed);
+        }
+    }
+        private void FindClosestEnemyByY() // 가까운적찾기
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); // 적 배열 저장
+            float minDeltaY = Mathf.Infinity; //무한대로 시작하기 때문에 첫번째적갱신
+            closestEnemy = null;
 
+            foreach (GameObject enemy in enemies)
+            {
+                float deltaY = Mathf.Abs(enemy.transform.position.y - transform.position.y);
+                //플레이어와 적 사이의 y좌표차이 구하기
+
+                if (deltaY < minDeltaY)
+                {
+                    minDeltaY = deltaY;
+                    closestEnemy = enemy;
+                }
+            }
+        }
+    private void HandleManualMove(float speed)
+    {
 
         // 1. 키보드 입력을 감지한다. 
         // 유니티에서는 Input이라고 하는 모듈이 입력에 관한 모든것을 담당하다.
@@ -106,7 +148,7 @@ public class PlayerMove : MonoBehaviour
         // 새로운 위치 = 현재 위치 + (방향 * 속력) * 시간
         // 새로운 위치 = 현재 위치 + 속도 * 시간
         //       새로운 위치 = 현재 위치  +  방향     *  속력   * 시간
-        Vector2 newPosition = position + direction * finalSpeed * Time.deltaTime;  // 새로운 위치
+        Vector2 newPosition = position + direction * speed * Time.deltaTime;  // 새로운 위치
 
 
         // Time.deltaTime: 이전 프레임으로부터 현재 프레임까지 시간이 얼마나 흘렀는지.. 나타내는 값
@@ -132,7 +174,18 @@ public class PlayerMove : MonoBehaviour
 
         transform.position = newPosition;         // 새로운 위치로 갱신
     }
+    private void HandleAutoBattleMove(float speed) //자동전투
+    {
+        // 2. 가장 가까운 적이 있다면 해당 적의 X 위치로 플레이어 X위치를 이동.
+        if (closestEnemy == null)
+            return;
+        {
+            float targetX = closestEnemy.transform.position.x; // 목표 X 위치
+            Vector2 currentPosition = transform.position; // 현재 플레이어 위치
 
+            transform.position = Vector2.MoveTowards(currentPosition, new Vector2(targetX, currentPosition.y), _speed * Time.deltaTime);
+        }
+    }
     private void TranslateToOrigin(float speed)
     {
         // 방향을 구한다.

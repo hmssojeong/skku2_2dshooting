@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     public EEnemyType Type;
 
     public float CoolTime = 2f;
-    private float _timer;
 
     [Header("적 움직임 시간")]
     public float MoveDuration = 0.5f; // 첫 번쨰 전체 움직이는 시간

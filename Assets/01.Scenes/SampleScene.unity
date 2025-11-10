@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 547376505}
   m_Layer: 0
   m_Name: EnemySpanwer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 753673944}
   m_Layer: 0
   m_Name: EnemySpanwer (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -789,6 +789,7 @@ MonoBehaviour:
   MaxX: 2
   MinY: -2
   MaxY: 0
+  AutoBattle: 0
 --- !u!50 &1108410082
 Rigidbody2D:
   serializedVersion: 5
@@ -971,7 +972,7 @@ GameObject:
   - component: {fileID: 1593296198}
   m_Layer: 0
   m_Name: EnemySpanwer (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

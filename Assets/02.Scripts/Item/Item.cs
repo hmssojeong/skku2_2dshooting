@@ -34,14 +34,6 @@ public class Item : MonoBehaviour
 
     private void Get()
     {
-
-        if (_timer <= CoolTime) //2초보다 작거나 같으면
-        {
-            
-            transform.position += Vector3.zero; //위치는 그대로
-            return;
-        }
-
         if (_timer > CoolTime)
         {
             GameObject playerObject = GameObject.FindWithTag("Player");
