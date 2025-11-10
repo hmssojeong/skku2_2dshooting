@@ -14,6 +14,7 @@ public enum EEnemyType
 
 public class Enemy : MonoBehaviour
 {
+    
     [Header("스탯")]
     public float Speed;
     public float Damage = 1;
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void Execute()
     {
         // 두가지 타입
         if (Type == EEnemyType.Directional)
@@ -65,6 +66,7 @@ public class Enemy : MonoBehaviour
         // 1. 함수가 너무 많아질거 같네?  (OCP위반)    -> 클래스로 쪼개자..
         // 2. 쪼개고 나니까 똑같은 기능/속성이 있네     -> 상속
         // 3. 상속을 하자니 책임이 너무 크네(SRP위반)   -> 조합
+  
     }
 
     private void MoveDirectional()
@@ -110,6 +112,8 @@ public class Enemy : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
+
+        _animator.SetTrigger("Hit");
 
         if (_health <= 0)
         {
