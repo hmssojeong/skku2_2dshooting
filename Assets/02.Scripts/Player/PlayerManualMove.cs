@@ -15,7 +15,7 @@ public class PlayerManualMove : MonoBehaviour
     public float MinX = -2;
     public float MaxX = 2;
     public float MinY = -5;
-    public float MaxY = 0;
+    public float MaxY = 5;
 
     private Player _player;
 

@@ -6,6 +6,7 @@ public enum EItemType
     MoveSpeedUp,
     HealthUp,
     AttackSpeedUp,
+    DestroyAllEnemies,
 }
 
 public class Item : MonoBehaviour
@@ -21,6 +22,8 @@ public class Item : MonoBehaviour
     public float MoveSpeed = 5f;
 
     private GameObject _playerObject;
+    
+
     private void Start()
     {
         _playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -28,6 +31,7 @@ public class Item : MonoBehaviour
 
     private void Update()
     {
+
         WaitTime -= Time.deltaTime;
         if (WaitTime > 0) return;
 
@@ -51,7 +55,7 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Apply(Collider2D other)
+    private void Apply(Collider2D other) // 다른것과 충돌했을 때 적용
     {
         // 아이템 타입에 따라서 다르게 적용
         switch (Type)
