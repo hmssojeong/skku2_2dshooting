@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void Execute()
+    public void Update()
     {
         // 두가지 타입
         if (Type == EEnemyType.Directional)

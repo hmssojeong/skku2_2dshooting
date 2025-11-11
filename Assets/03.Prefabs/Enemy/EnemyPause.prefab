@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5812139926628518621}
   - component: {fileID: 9170161278430716583}
   - component: {fileID: 7470129944688625701}
+  - component: {fileID: 1776693430066033109}
   m_Layer: 0
   m_Name: EnemyPause
   m_TagString: Enemy
@@ -176,3 +177,25 @@ MonoBehaviour:
   - {fileID: 4316850671791685852, guid: 041b2585da550734d851d281c33bfcc7, type: 3}
   - {fileID: 925821287081139928, guid: b31389e19173e29459e97c1cafe59ed6, type: 3}
   ItemWeights: 140000000a00000046000000
+--- !u!95 &1776693430066033109
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3492990003254467458}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ca90be7a39825f4bb0c5d6036acd42a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

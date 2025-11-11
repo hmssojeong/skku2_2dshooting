@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1622717954717437210}
   - component: {fileID: 5555819109304505996}
   - component: {fileID: 4600948229968628353}
+  - component: {fileID: 6412021143372850601}
   m_Layer: 0
   m_Name: Enemy_Directional
   m_TagString: Enemy
@@ -199,3 +200,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6412021143372850601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3074432886884548861}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3adcb7f02de404ba9fb0f21b6a388c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 3
+  Damage: 2
+  MoveDuration: 0.5
+  StopDuration: 2
