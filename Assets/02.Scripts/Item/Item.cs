@@ -14,6 +14,9 @@ public class Item : MonoBehaviour
     public EItemType Type;
     public float Value;
 
+    [Header("아이템 프리팹")]
+    public GameObject ItemParticleEffect;
+
     public float WaitTime = 2f;
     public float MoveSpeed = 5f;
 
@@ -44,7 +47,7 @@ public class Item : MonoBehaviour
         if (other.CompareTag("Player") == false) return;
 
         Apply(other);
-
+        MakeItemParticleEffect();
         Destroy(gameObject);
     }
 
@@ -75,5 +78,10 @@ public class Item : MonoBehaviour
                 }
         }
 
+    }
+
+    private void MakeItemParticleEffect()
+    {
+        Instantiate(ItemParticleEffect, transform.position, Quaternion.identity);
     }
 }

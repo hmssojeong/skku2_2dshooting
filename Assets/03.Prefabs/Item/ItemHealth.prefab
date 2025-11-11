@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   Value: 0
+  ItemParticleEffect: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
   WaitTime: 2
   MoveSpeed: 5
 --- !u!95 &2288753109735240132
