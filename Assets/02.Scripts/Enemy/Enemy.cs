@@ -37,6 +37,9 @@ public class Enemy : MonoBehaviour
 
     private Animator _animator;
     private Enemy _enemy;
+
+    [Header("폭발 프리팹")]
+    public GameObject ExplosionPrefab;
   
 
     private void Start()
@@ -118,11 +121,15 @@ public class Enemy : MonoBehaviour
         if (_health <= 0)
         {
             DropItem();
+            MakeExplosionEffect();
             Destroy(this.gameObject);
-            
         }
     }
 
+    private void MakeExplosionEffect()
+    {
+        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+    }
     private void DropItem()
     {
         // 50% 확률로 리턴
