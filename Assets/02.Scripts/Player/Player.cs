@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
     private float _health = 3;
 
     public float Speed = 3;
-    
-    private bool _specialSkill = false;
 
     private void Start()
     {
@@ -27,7 +25,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)) _autoMode = true;
         if (Input.GetKeyDown(KeyCode.Alpha2)) _autoMode = false;
 
-        if (Input.GetKeyDown(KeyCode.Alpha3)) _specialSkill = true;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _specialSkillBoom.Execute();
+        }
 
         if (_autoMode)
         {
@@ -36,12 +37,6 @@ public class Player : MonoBehaviour
         else
         {
             _playerManualMove.Execute();
-        }
-
-        if(_specialSkill)
-        {
-            _specialSkillBoom.Execute();
-            _specialSkill = false;
         }
     }
 
