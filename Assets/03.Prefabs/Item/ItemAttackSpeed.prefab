@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
-  Value: 0
+  Value: 1
   WaitTime: 2
   MoveSpeed: 5
 --- !u!95 &1369061752698603040
