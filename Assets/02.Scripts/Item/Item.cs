@@ -55,7 +55,7 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Apply(Collider2D other) // 다른것과 충돌했을 때 적용
+    private void Apply(Collider2D other)
     {
         // 아이템 타입에 따라서 다르게 적용
         switch (Type)

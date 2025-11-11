@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 
     public float Speed = 3;
     
-    private bool _specialSkill = false; //-----------------------------------스페셜 스킬
+    private bool _specialSkill = false;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)) _autoMode = true;
         if (Input.GetKeyDown(KeyCode.Alpha2)) _autoMode = false;
 
-        if (Input.GetKeyDown(KeyCode.Alpha3)) _specialSkill = true; //-----------------------------------스페셜 스킬
+        if (Input.GetKeyDown(KeyCode.Alpha3)) _specialSkill = true;
 
         if (_autoMode)
         {
@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
 
         if(_specialSkill)
         {
-
             _specialSkillBoom.Execute();
             _specialSkill = false;
         }
