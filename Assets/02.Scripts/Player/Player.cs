@@ -55,6 +55,8 @@ public class Player : MonoBehaviour
         if (_health <= 0)
         {
             Destroy(gameObject);
+            ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
+            scoreManager.BestScore();
         }
     }
 

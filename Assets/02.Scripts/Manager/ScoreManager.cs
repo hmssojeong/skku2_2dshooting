@@ -8,14 +8,19 @@ public class ScoreManager : MonoBehaviour
     // 응집도를 높이고, 필요한 것만 외부에 공개하는 것을 '캡슐화'
 
     [SerializeField] private Text _currentScoreTextUI;
+    [SerializeField] private Text _bestScoreTextUI;
     private int _currentScore = 0;
+    private int _bestScore = 0;
 
     private const string ScoreKey = "Score";
 
     private void Start()
     {
         Load();
+        _currentScore = 0;
         Refesh();
+        Refeshbest();
+
     }
 
     public void AddScore(int score)
@@ -28,6 +33,19 @@ public class ScoreManager : MonoBehaviour
         Save();
     }
 
+    public void BestScore()
+    {
+        if (_currentScore > _bestScore)
+        {
+            _bestScore = _currentScore;
+            return;
+        }
+
+        Refeshbest();
+
+        Savebest();
+    }
+
     // 1. 하나의 메서드는 한가지 일만 잘 하면된다.
 
     private void Refesh()
@@ -35,14 +53,25 @@ public class ScoreManager : MonoBehaviour
         _currentScoreTextUI.text = $"현재 점수: {_currentScore:N0}";
     }
 
+    private void Refeshbest()
+    {
+        _bestScoreTextUI.text = $"최고 점수: {_bestScore:N0}";
+    }
+
     private void Save()
     {
         PlayerPrefs.SetInt(ScoreKey, _currentScore);
     }
 
+    private void Savebest()
+    {
+        PlayerPrefs.SetInt(ScoreKey, _bestScore);
+    }
+
     private void Load()
     {
         _currentScore = PlayerPrefs.GetInt(ScoreKey, 0);
+        _bestScore = PlayerPrefs.GetInt(ScoreKey, 0);
     }
 
 }
