@@ -12,7 +12,8 @@ public class ScoreManager : MonoBehaviour
     private int _currentScore = 0;
     private int _bestScore = 0;
 
-    private const string ScoreKey = "Score";
+    private const string CurrentScoreKey = "CurrentScore";
+    private const string BestScoreKey = "BestScore";
 
     private void Start()
     {
@@ -38,7 +39,6 @@ public class ScoreManager : MonoBehaviour
         if (_currentScore > _bestScore)
         {
             _bestScore = _currentScore;
-            return;
         }
 
         Refeshbest();
@@ -60,18 +60,18 @@ public class ScoreManager : MonoBehaviour
 
     private void Save()
     {
-        PlayerPrefs.SetInt(ScoreKey, _currentScore);
+        PlayerPrefs.SetInt(CurrentScoreKey, _currentScore);
     }
 
     private void Savebest()
     {
-        PlayerPrefs.SetInt(ScoreKey, _bestScore);
+        PlayerPrefs.SetInt(BestScoreKey, _bestScore);
     }
 
     private void Load()
     {
-        _currentScore = PlayerPrefs.GetInt(ScoreKey, 0);
-        _bestScore = PlayerPrefs.GetInt(ScoreKey, 0);
+        _currentScore = PlayerPrefs.GetInt(CurrentScoreKey, 0);
+        _bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
     }
 
 }
