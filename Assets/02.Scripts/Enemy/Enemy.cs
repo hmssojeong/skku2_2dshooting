@@ -121,6 +121,7 @@ public class Enemy : MonoBehaviour
 
         if (_health <= 0)
         {
+            SoundManager.instance.PlaySFX(SoundManager.ESfx.SFXEnemyExplosion);
             Death();
         }
     }
