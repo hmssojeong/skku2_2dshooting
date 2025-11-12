@@ -1,8 +1,12 @@
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    public Animator ScoreAnimator;
+
     // 응집도를 높혀라
     // 응집도 : '데이터'와 '데이터를 조작하는 로직'이 얼마나 잘 모여있냐
     // 응집도를 높이고, 필요한 것만 외부에 공개하는 것을 '캡슐화'
@@ -11,16 +15,20 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text _bestScoreTextUI;
     private int _currentScore = 0;
     private int _bestScore = 0;
+    private Vector3 _originalScale;
+    
 
     private const string CurrentScoreKey = "CurrentScore";
     private const string BestScoreKey = "BestScore";
 
     private void Start()
     {
+        _originalScale = _currentScoreTextUI.transform.localScale;
         Load();
         _currentScore = 0;
-        Refesh();
-        Refeshbest();
+        
+        Refresh();
+        Refreshbest();
 
     }
 
@@ -29,7 +37,11 @@ public class ScoreManager : MonoBehaviour
         if (score < 0) return;
         _currentScore += score;
 
-        Refesh();
+        AnimateScore();
+
+        Refresh();
+
+        Save();
     }
 
     public void BestScore()
@@ -39,21 +51,26 @@ public class ScoreManager : MonoBehaviour
             _bestScore = _currentScore;
         }
 
-        Refeshbest();
+        Refreshbest();
 
         Savebest();
     }
 
     // 1. 하나의 메서드는 한가지 일만 잘 하면된다.
 
-    private void Refesh()
+    private void Refresh()
     {
         _currentScoreTextUI.text = $"현재 점수: {_currentScore:N0}";
     }
 
-    private void Refeshbest()
+    private void Refreshbest()
     {
         _bestScoreTextUI.text = $"최고 점수: {_bestScore:N0}";
+    }
+
+    private void Save()
+    {
+        PlayerPrefs.SetInt(CurrentScoreKey, _currentScore);
     }
 
     private void Savebest()
@@ -63,7 +80,17 @@ public class ScoreManager : MonoBehaviour
 
     private void Load()
     {
+        _currentScore = PlayerPrefs.GetInt(CurrentScoreKey, 0);
         _bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
     }
 
+    public void AnimateScore()
+    {
+
+        // 1.5배로 커졌다가 0.5초만에 원래 크기로 돌아오기
+        _currentScoreTextUI.transform.DOScale(_originalScale * 1.5f, 0.25f)
+            .OnComplete(() =>
+                _currentScoreTextUI.transform.DOScale(_originalScale, 0.25f)
+            );
+    }
 }
