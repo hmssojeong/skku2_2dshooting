@@ -30,8 +30,6 @@ public class ScoreManager : MonoBehaviour
         _currentScore += score;
 
         Refesh();
-
-        Save();
     }
 
     public void BestScore()
@@ -58,11 +56,6 @@ public class ScoreManager : MonoBehaviour
         _bestScoreTextUI.text = $"최고 점수: {_bestScore:N0}";
     }
 
-    private void Save()
-    {
-        PlayerPrefs.SetInt(CurrentScoreKey, _currentScore);
-    }
-
     private void Savebest()
     {
         PlayerPrefs.SetInt(BestScoreKey, _bestScore);
@@ -70,7 +63,6 @@ public class ScoreManager : MonoBehaviour
 
     private void Load()
     {
-        _currentScore = PlayerPrefs.GetInt(CurrentScoreKey, 0);
         _bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
     }
 
