@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1294883471783928405}
-  - component: {fileID: 4567094182349760582}
   - component: {fileID: 5283786283714474708}
   - component: {fileID: 7974789435876054774}
   - component: {fileID: 495805149153402372}
+  - component: {fileID: 1412505858137242673}
   m_Layer: 0
   m_Name: SpecialSkillBoom
   m_TagString: Untagged
@@ -35,22 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4567094182349760582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5474306120058869057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b84a65824e8161e4e9fd3f0a38681e16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 100
-  CoolTime: 3
-  BoomPrefab: {fileID: 5339739117810204693, guid: 26e1cb216e3635e4a820f58a1118d6b9, type: 3}
-  SpecialSkillBoom: {fileID: 0}
 --- !u!212 &5283786283714474708
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -164,3 +148,17 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 1.5
+--- !u!114 &1412505858137242673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5474306120058869057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5d31e6dcbc23d4983f12974b14a90d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 100
+  ExplosionPrefab: {fileID: 5339739117810204693, guid: 26e1cb216e3635e4a820f58a1118d6b9, type: 3}

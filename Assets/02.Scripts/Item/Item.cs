@@ -6,7 +6,6 @@ public enum EItemType
     MoveSpeedUp,
     HealthUp,
     AttackSpeedUp,
-    DestroyAllEnemies,
 }
 
 public class Item : MonoBehaviour
