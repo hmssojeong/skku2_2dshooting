@@ -27,4 +27,43 @@ public class ScoreManager : MonoBehaviour
     {
         _currentScoreTextUI.text = $"현재 점수: {_currentScore}";
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Alpha9))
+        {
+            TestSave();
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha0))
+        {
+            TestLoad();
+        }
+    }
+    private void TestSave()
+    {
+        // 유니티에서는 값을 저장할때 'PlayerPrefs' 모듈을 씁니다.
+        // 저장 가능한 자료형은: int, float, string
+        // 저장을 할때는 저장할 이름(key)과 값(value) 이 두 형태로 저장을 해요.
+        // 저장: Set
+        // 로드: Get
+
+        PlayerPrefs.SetInt("age", 19);
+        PlayerPrefs.SetString("name", "김홍일");
+        Debug.Log("저장됐습니다");
+    }
+
+    private void TestLoad()
+    {
+        int age = 17;
+        if (PlayerPrefs.HasKey("age"))                               //검사
+        {
+            age = PlayerPrefs.GetInt(key: "age");
+        }
+        
+        string name = PlayerPrefs.GetString(key: "name", "티모");   //default 인자
+
+
+        Debug.Log($"{name}: {age}");
+    }
+
 }
