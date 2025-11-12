@@ -21,6 +21,8 @@ public class Item : MonoBehaviour
     public float MoveSpeed = 5f;
 
     private GameObject _playerObject;
+    
+
     private void Start()
     {
         _playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -28,6 +30,7 @@ public class Item : MonoBehaviour
 
     private void Update()
     {
+
         WaitTime -= Time.deltaTime;
         if (WaitTime > 0) return;
 

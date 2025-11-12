@@ -6,22 +6,26 @@ public class Player : MonoBehaviour
     private PlayerManualMove _playerManualMove;
     private PlayerAutoMove _playerAutoMove;
 
+    private PlayerSpecialSkill _specialSkillBoom;
+
     private bool _autoMode = false;
     private float _health = 3;
 
     public float Speed = 3;
 
-
     private void Start()
     {
         _playerAutoMove = GetComponent<PlayerAutoMove>();
         _playerManualMove = GetComponent<PlayerManualMove>();
+        _specialSkillBoom = GetComponent<PlayerSpecialSkill>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) _autoMode = true;
-        if (Input.GetKeyDown(KeyCode.Alpha2)) _autoMode = false;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _specialSkillBoom.Execute();
+        }
 
         if (_autoMode)
         {
@@ -31,6 +35,16 @@ public class Player : MonoBehaviour
         {
             _playerManualMove.Execute();
         }
+    }
+
+    public void SetAutoMode(bool isAuto)
+    {
+        _autoMode = isAuto;
+    }
+
+    public void UseSpecialSkill()
+    {
+        _specialSkillBoom.Execute();
     }
 
 
@@ -48,4 +62,5 @@ public class Player : MonoBehaviour
     {
         _health += value;
     }
+
 }
