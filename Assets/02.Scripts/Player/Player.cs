@@ -22,9 +22,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) _autoMode = true;
-        if (Input.GetKeyDown(KeyCode.Alpha2)) _autoMode = false;
-
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             _specialSkillBoom.Execute();
@@ -38,6 +35,16 @@ public class Player : MonoBehaviour
         {
             _playerManualMove.Execute();
         }
+    }
+
+    public void SetAutoMode(bool isAuto)
+    {
+        _autoMode = isAuto;
+    }
+
+    public void UseSpecialSkill()
+    {
+        _specialSkillBoom.Execute();
     }
 
 
