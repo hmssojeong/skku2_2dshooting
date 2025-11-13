@@ -42,6 +42,7 @@ public class BulletFactory : MonoBehaviour
     [Header("총알 프리팹")] // 복사해올 총알 프리팹 게임 오브젝트
     public GameObject BulletPrefab;
     public GameObject SubBulletPrefab;
+    public GameObject ZigzagBulletPrefab;
 
     [Header("풀링")]
     public int PoolSize = 30;
@@ -69,12 +70,38 @@ public class BulletFactory : MonoBehaviour
             }
         }
 
-        Debug.LogError("탄창에 총알 개수가 부족합니다. [정희연을 찾아주세요.]");
+        Debug.LogError("탄창에 총알 개수가 부족합니다.");
         return null;
     }
+    
+    public GameObject MakeZigzagBullet(Vector3 position)
+    {
+        GameObject bullet = Instantiate(ZigzagBulletPrefab, position, Quaternion.identity, transform);
+        return bullet;
+    }
+
 
     public GameObject MakeSubBullet(Vector3 position)
     {
         return Instantiate(SubBulletPrefab, position, Quaternion.identity, transform);
+    }
+
+
+    public GameObject MakeZigZagBullet(Vector3 position, Vector3 targetPosition, float speed = 10f, float amplitude = 2f, float frequency = 5f)
+    {
+        if (ZigzagBulletPrefab == null)
+        {
+            Debug.LogError("ZigzagBulletPrefab이 할당되지 않았습니다!");
+            return null;
+        }
+
+        GameObject bullet = Instantiate(ZigzagBulletPrefab, position, Quaternion.identity, transform);
+        ZigZagBullet zigzag = bullet.GetComponent<ZigZagBullet>();
+        if (zigzag != null)
+        {
+            zigzag.Initialize(targetPosition, speed, amplitude, frequency);
+        }
+
+        return bullet;
     }
 }
