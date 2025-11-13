@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class PlayerFire : MonoBehaviour
@@ -20,6 +21,7 @@ public class PlayerFire : MonoBehaviour
     [Header("사운드")]
     public AudioSource FireSound;
 
+  
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) AutoMode = true;

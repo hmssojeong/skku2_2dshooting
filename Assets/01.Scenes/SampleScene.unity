@@ -1055,6 +1055,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 643703404}
+  - component: {fileID: 643703405}
   m_Layer: 0
   m_Name: EnemySpanwers
   m_TagString: Untagged
@@ -1080,6 +1081,24 @@ Transform:
   - {fileID: 753673945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &643703405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643703403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a90f7f2a170554a9aaae167e27d1aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefabs:
+  - {fileID: 3074432886884548861, guid: 45c4e95c62fee4148bc73052f16d072a, type: 3}
+  - {fileID: 3074432886884548861, guid: 404e5319d811c3e48adb06b6c49660b9, type: 3}
+  - {fileID: 3492990003254467458, guid: 8b3a5f387df6dcb44a95fc9ef3490b63, type: 3}
+  EnemySpawnRate: 46000000140000000a000000
+  CoolTime: 5
 --- !u!1 &724416630
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,6 +2046,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4094652863026586785, guid: 7fbde093c8442c748ad47a61d88ca43f, type: 3}
   m_PrefabInstance: {fileID: 2124455646}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1738492118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1738492120}
+  - component: {fileID: 1738492119}
+  m_Layer: 0
+  m_Name: EnemyFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1738492119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738492118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c7a2f18fc077448990276f50594314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 3074432886884548861, guid: 45c4e95c62fee4148bc73052f16d072a, type: 3}
+  PoolSize: 30
+--- !u!4 &1738492120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738492118}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1792347684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2417,3 +2482,4 @@ SceneRoots:
   - {fileID: 848657254}
   - {fileID: 361327793}
   - {fileID: 2044287086}
+  - {fileID: 1738492120}
