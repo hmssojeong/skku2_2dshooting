@@ -4,11 +4,6 @@ public class PlayerFire : MonoBehaviour
 {
     // 목표: 스페이스바를 누르면 총알을 만들어서 발사하고 싶다.
 
-    // 필요 속성
-    [Header("총알 프리팹")] // 복사해올 총알 프리팹 게임 오브젝트
-    public GameObject BulletPrefab;
-    public GameObject SubBulletPrefab;
-
     [Header("총구")]
     public Transform FirePosition;
     public float FireOffset = 0.3f;
@@ -59,25 +54,25 @@ public class PlayerFire : MonoBehaviour
         CoolTime -= value;
     }
 
+    // 기획은 다같이
+    // 총알
+    // 플레이어가 총알 생성(PlayerFire)
+    // 적이 총알 생성(EnemyFire, Enemy, EnemyController)
+    // 펫도 총알 생성 (PetFire, Pet, PetController)
+
     private void MakeBullets()
     {
-        // 2. 프리팹으로부터 총알(게임 오브젝트)을 생성한다.
-        GameObject bullet1 = Instantiate(BulletPrefab);
-        GameObject bullet2 = Instantiate(BulletPrefab);
+        BulletFactory bulletFactory = GameObject.Find("BulletFactory").GetComponent<BulletFactory>();
+        bulletFactory.MakeBullet(position: FirePosition.position + new Vector3(-FireOffset, 0, 0));
+        bulletFactory.MakeBullet(position: FirePosition.position + new Vector3(FireOffset, 0, 0));
 
-        // 3. 총알의 위치를 총구 위치로 바꾸기 
-        bullet1.transform.position = FirePosition.position + new Vector3(-FireOffset, 0, 0);
-        bullet2.transform.position = FirePosition.position + new Vector3(FireOffset, 0, 0);
+
     }
 
     private void MakeSubBullets()
     {
-        // 2. 프리팹으로부터 총알(게임 오브젝트)을 생성한다.
-        GameObject bullet1 = Instantiate(SubBulletPrefab);
-        GameObject bullet2 = Instantiate(SubBulletPrefab);
-
-        // 3. 총알의 위치를 총구 위치로 바꾸기 
-        bullet1.transform.position = SubFirePositionLeft.position;
-        bullet2.transform.position = SubFirePositionRight.position;
+        BulletFactory bulletFactory = GameObject.Find("BulletFactory").GetComponent<BulletFactory>();
+        bulletFactory.MakeSubBullet(SubFirePositionLeft.position);
+        bulletFactory.MakeSubBullet(SubFirePositionRight.position);
     }
 }

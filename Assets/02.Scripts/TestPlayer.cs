@@ -20,7 +20,7 @@ public class TestPlayer : MonoBehaviour
 
     public void Revive()
     {
-        //  _health = MaxHealth;
+        //  _health = MaxHealth;정
     }
     public void SetHealth(int health)
     {

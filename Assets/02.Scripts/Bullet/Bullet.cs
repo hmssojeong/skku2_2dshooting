@@ -53,6 +53,6 @@ public class Bullet : MonoBehaviour
         // 객체간의 상호 작용을 할때 : 묻지말고 시켜라(디미터의 법칙)
         enemy.Hit(Damage);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
