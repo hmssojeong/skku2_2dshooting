@@ -33,7 +33,7 @@ public class Item : MonoBehaviour
 
         WaitTime -= Time.deltaTime;
         if (WaitTime > 0) return;
-
+        
         // 1. 플레이어를 찾는다.
         if (_playerObject == null) return;
 
@@ -42,20 +42,24 @@ public class Item : MonoBehaviour
 
         // 3. 이동한다.
         transform.Translate(direction * MoveSpeed * Time.deltaTime);
+
     }
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") == false) return;
-
+        
+        SoundManager.instance.PlaySFX(SoundManager.ESfx.SFXGetItem);
         Apply(other);
         MakeItemParticleEffect();
         Destroy(gameObject);
+  
     }
 
     private void Apply(Collider2D other)
     {
+        
         // 아이템 타입에 따라서 다르게 적용
         switch (Type)
         {

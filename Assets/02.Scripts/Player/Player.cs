@@ -54,7 +54,10 @@ public class Player : MonoBehaviour
 
         if (_health <= 0)
         {
+            SoundManager.instance.PlaySFX(SoundManager.ESfx.SFXGameOver);
             Destroy(gameObject);
+            ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
+            scoreManager.BestScore();
         }
     }
 

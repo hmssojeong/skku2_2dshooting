@@ -11,6 +11,7 @@ public class PlayerSpecialSkill : MonoBehaviour
     public void Execute()
     {
         GameObject boom = Instantiate(SpecialSkillBoomPrefab, Vector2.zero, Quaternion.identity);
+        SoundManager.instance.PlaySFX(SoundManager.ESfx.SFXSpecialSkill);
         Destroy(boom, Duration);
     }
 }
