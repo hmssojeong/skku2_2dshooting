@@ -17,6 +17,9 @@ public class PlayerManualMove : MonoBehaviour
     public float MinY = -5;
     public float MaxY = 5;
 
+    [Header("조이스틱")]
+    public Joystick Joystick;
+
     private Player _player;
 
     private void Start()
@@ -46,8 +49,8 @@ public class PlayerManualMove : MonoBehaviour
         }
 
 
-        float h = Input.GetAxisRaw("Horizontal"); // 수평 입력에 대한 값을 -1, 0, 1로 가져온다.
-        float v = Input.GetAxisRaw("Vertical");   // 수직 입력에 대한 값을 -1, 0, 1로 가져온다.
+        float h = Joystick.Horizontal; // Input.GetAxisRaw("Horizontal"); // 수평 입력에 대한 값을 -1, 0, 1로 가져온다.
+        float v = Joystick.Vertical; // Input.GetAxisRaw("Vertical");   // 수직 입력에 대한 값을 -1, 0, 1로 가져온다.
 
 
         Vector2 direction = new Vector2(h, v);
