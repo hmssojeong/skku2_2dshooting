@@ -3,7 +3,7 @@ using UnityEngine;
 public class BossController : MonoBehaviour
 {
     [Header("플레이어")]
-    public Transform player;
+    public GameObject Player;
 
     [Header("원형 이동 설정")]
     public float radius = 5f;          // 원의 반지름
@@ -30,11 +30,12 @@ public class BossController : MonoBehaviour
     private void Awake()
     {
         currentHealth = maxHealth;
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (player == null) return;
+        if (Player == null) return;
 
         OrbitMovement();
         HandleShooting();
@@ -61,11 +62,11 @@ public class BossController : MonoBehaviour
     }
     private void ShootZigZagBullet()
     {
-        if (firePoint == null || player == null) return;
+        if (firePoint == null || Player == null) return;
 
         BulletFactory.Instance.MakeZigZagBullet(
             firePoint.position,
-            player.position,
+            Player.transform.position,
             bulletSpeed,
             zigZagAmplitude,
             zigZagFrequency
@@ -77,7 +78,7 @@ public class BossController : MonoBehaviour
     {
         currentHealth -= damage;
 
-        _animator.SetTrigger("Hit");
+        _animator.SetTrigger("BossHit");
 
         if (currentHealth <= 0)
         {

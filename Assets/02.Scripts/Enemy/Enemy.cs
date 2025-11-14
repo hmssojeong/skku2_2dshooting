@@ -1,16 +1,13 @@
 using System;
-using UnityEditor.Rendering;
-using UnityEditor.UI;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using Random = UnityEngine.Random;
 
 // Enum : 열거형 : 기억하기 어려운 상수들을 기억하기 쉬운 이름 하나로 묶어(그룹) 관리하는 표현 방식
 public enum EEnemyType
 {
-    Directional,             // 0
-    Trace,                   // 1
-    MovePause                // 2
+    Directional,             
+    Trace,                   
+    MovePause                
 }
 
 public class Enemy : MonoBehaviour

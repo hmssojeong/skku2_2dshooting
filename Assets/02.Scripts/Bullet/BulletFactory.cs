@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
+
 
 public class BulletFactory : MonoBehaviour
 {
@@ -32,6 +31,7 @@ public class BulletFactory : MonoBehaviour
         }
 
         _instance = this;
+
         PoolInit();
     }
 
