@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour
     // 게임 개발에서는 Manager(관리자) 클래스를 보통 싱글톤 패턴으로 사용하는 것이 관행이다.
     private static ScoreManager _instance = null;
 
+    public int CurrentScore = 0;
     public static ScoreManager Instance => _instance;
     private void Awake()
     {
@@ -57,6 +58,9 @@ public class ScoreManager : MonoBehaviour
         AnimateScore();
 
         Refresh();
+
+        UpdateBestScore();
+        BossSpawner.instance.CheckSpawnBoss(_currentScore);  // 보스 체크 추가
 
         Save();
     }
@@ -109,5 +113,19 @@ public class ScoreManager : MonoBehaviour
             .OnComplete(() =>
                 _currentScoreTextUI.transform.DOScale(_originalScale, 0.25f)
             );
+    }
+
+    // 최고 점수 갱신 함수 정의
+    private void UpdateBestScore()
+    {
+        if (_currentScore > _bestScore)
+        {
+            _bestScore = _currentScore;
+            _bestScoreTextUI.text = $"최고 점수: {_bestScore:N0}";
+
+            // PlayerPrefs에 저장
+            PlayerPrefs.SetInt(BestScoreKey, _bestScore);
+            PlayerPrefs.Save();
+        }
     }
 }

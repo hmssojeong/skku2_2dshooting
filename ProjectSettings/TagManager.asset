@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - DestroyZone
   - Bullet
+  - Boss
   layers:
   - Default
   - TransparentFX
