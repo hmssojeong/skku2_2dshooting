@@ -53,7 +53,7 @@ public class PlayerFire : MonoBehaviour
 
     public void SpeedUp (float value)
     {
-        CoolTime -= value;
+        CoolTime = Mathf.Max(0.05f, CoolTime - value);
     }
 
     // 기획은 다같이
@@ -67,7 +67,12 @@ public class PlayerFire : MonoBehaviour
         BulletFactory bulletFactory = GameObject.Find("BulletFactory").GetComponent<BulletFactory>();
         bulletFactory.MakeBullet(position: FirePosition.position + new Vector3(-FireOffset, 0, 0));
         bulletFactory.MakeBullet(position: FirePosition.position + new Vector3(FireOffset, 0, 0));
+        
+        Vector3 leftPos = FirePosition.position + Vector3.left * FireOffset;
+        Vector3 rightPos = FirePosition.position + Vector3.right * FireOffset;
 
+        BulletFactory.Instance.MakeBullet(leftPos);
+        BulletFactory.Instance.MakeBullet(rightPos);
 
     }
 

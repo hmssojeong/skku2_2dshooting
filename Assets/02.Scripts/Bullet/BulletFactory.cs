@@ -1,12 +1,28 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Collections.Generic;
+using static UnityEditor.PlayerSettings;
 
 public class BulletFactory : MonoBehaviour
 {
     private static BulletFactory _instance = null;
-
     public static BulletFactory Instance => _instance;
+
+    // 필요 속성
+    [Header("총알 프리팹")] // 복사해올 총알 프리팹 게임 오브젝트
+    public GameObject BulletPrefab;
+    public GameObject SubBulletPrefab;
+    public GameObject ZigzagBulletPrefab;
+
+    [Header("풀링")]
+    public int PoolSize = 30;
+    public int SubPoolSize = 30;
+    public int ZigzagPoolSize = 30;
+
+    private List<GameObject> _bulletObjectPool = new List<GameObject>(); // 게임 총알을 담아둘 풀: 탄창
+    private List<GameObject> _subBulletPool = new List<GameObject>();
+    private List<GameObject> _zigzagBulletPool = new List<GameObject>();
+
     private void Awake()
     {
         if (_instance != null)
@@ -21,81 +37,61 @@ public class BulletFactory : MonoBehaviour
 
     private void PoolInit()
     {
-        // Awake vs Start vs Lazy
-        // 1. 탄창을 총알을 담을 수 있는 크기로 만들어준다.
-        _bulletObjectPool = new GameObject[PoolSize];
+        CreatePool(_bulletObjectPool, BulletPrefab, PoolSize);
+        CreatePool(_subBulletPool, SubBulletPrefab, SubPoolSize);
+        CreatePool(_zigzagBulletPool, ZigzagBulletPrefab, ZigzagPoolSize);
+    }
 
-        // 2. 탄창 크기만큼 반복해서
-        for (int i = 0; i < PoolSize; i++)
+    private void CreatePool(List<GameObject> pool, GameObject prefab, int size)
+    {
+        if (prefab == null)
         {
-            // 3. 총알을 생성한다.
-            GameObject bulletObject = Instantiate(BulletPrefab, transform);
+            Debug.LogError("프리팹이 연결되지 않았습니다: " + prefab);
+            return;
+        }
 
-            // 4. 생성한 총알을 탄창에 담는다.
-            _bulletObjectPool[i] = bulletObject;
-
-            // 5. 비활성화 한다.
-            bulletObject.SetActive(false);
+        for (int i = 0; i < size; i++)
+        {
+            GameObject BulletObject = Instantiate(prefab, transform);
+            BulletObject.SetActive(false);
+            pool.Add(BulletObject);
         }
     }
-    // 필요 속성
-    [Header("총알 프리팹")] // 복사해올 총알 프리팹 게임 오브젝트
-    public GameObject BulletPrefab;
-    public GameObject SubBulletPrefab;
-    public GameObject ZigzagBulletPrefab;
 
-    [Header("풀링")]
-    public int PoolSize = 30;
-    private GameObject[] _bulletObjectPool;  // 게임 총알을 담아둘 풀: 탄창
-
-
-    public GameObject MakeBullet(Vector3 position)
+    private GameObject GetBulletFromPool(List<GameObject> pool, GameObject prefab, Vector3 pos)
     {
-        // 필요하다면 여기서 생성 이펙트도 생성하고
-        // 필요하다면 인자값으로 대미지도 받아서 넘겨주고..
-
-        // 1. 탄창 안에 있는 총알들 중에서
-        for (int i = 0; i<PoolSize; i++)
+        foreach (var bullet in pool)
         {
-            GameObject bulletObject = _bulletObjectPool[i];
-
-            // 2. 비활성화된 총알 하나를 찾아.
-            if (bulletObject.activeInHierarchy == false)
+            if (!bullet.activeInHierarchy)
             {
-                // 3. 위치를 수정하고, 활성화시킨다.
-                bulletObject.transform.position = position;
-                bulletObject.SetActive(true);
-
-                return bulletObject;
+                bullet.transform.position = pos;
+                bullet.SetActive(true);
+                return bullet;
             }
         }
 
-        Debug.LogError("탄창에 총알 개수가 부족합니다.");
-        return null;
-    }
-    
-    public GameObject MakeZigzagBullet(Vector3 position)
-    {
-        GameObject bullet = Instantiate(ZigzagBulletPrefab, position, Quaternion.identity, transform);
-        return bullet;
+        // 풀 부족 → 자동 확장
+        GameObject newBullet = Instantiate(prefab, pos, Quaternion.identity, transform);
+        pool.Add(newBullet);
+        return newBullet;
     }
 
+    // 총알 생성
+    public GameObject MakeBullet(Vector3 position)
+    {
+        return GetBulletFromPool(_bulletObjectPool, BulletPrefab, position);
+    }
 
     public GameObject MakeSubBullet(Vector3 position)
     {
-        return Instantiate(SubBulletPrefab, position, Quaternion.identity, transform);
+        return GetBulletFromPool(_subBulletPool, SubBulletPrefab, position);
     }
 
-
-    public GameObject MakeZigZagBullet(Vector3 position, Vector3 targetPosition, float speed = 10f, float amplitude = 2f, float frequency = 5f)
+    public GameObject MakeZigZagBullet(Vector3 position, Vector3 targetPosition,
+        float speed = 10f, float amplitude = 2f, float frequency = 5f)
     {
-        if (ZigzagBulletPrefab == null)
-        {
-            Debug.LogError("ZigzagBulletPrefab이 할당되지 않았습니다!");
-            return null;
-        }
+        GameObject bullet = GetBulletFromPool(_zigzagBulletPool, ZigzagBulletPrefab, position);
 
-        GameObject bullet = Instantiate(ZigzagBulletPrefab, position, Quaternion.identity, transform);
         ZigZagBullet zigzag = bullet.GetComponent<ZigZagBullet>();
         if (zigzag != null)
         {

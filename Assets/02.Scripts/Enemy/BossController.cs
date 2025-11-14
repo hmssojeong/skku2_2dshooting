@@ -19,11 +19,13 @@ public class BossController : MonoBehaviour
     public float zigZagFrequency = 5f; // 지그재그 속도
 
     [Header("보스 체력")]
-    public int maxHealth = 300;
-    private int currentHealth;
+    public int maxHealth = 5000;
+    private float currentHealth;
 
     private float angle = 0f;          // 현재 각도
     private float fireTimer = 0f;
+
+    private Animator _animator;
 
     private void Awake()
     {
@@ -71,11 +73,15 @@ public class BossController : MonoBehaviour
     }
 
     // 보스 데미지 함수
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+
+        _animator.SetTrigger("Hit");
+
         if (currentHealth <= 0)
         {
+            SoundManager.instance.PlaySFX(SoundManager.ESfx.SFXEnemyExplosion);
             Die();
         }
     }

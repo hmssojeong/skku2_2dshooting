@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public float CoolTime = 5f;
     private float _timer;
 
+    public bool CanSpawn = true;
 
     private void Start()
     {
@@ -21,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        if (!CanSpawn) return;
+
         // 1. 시간이 흐르다가.
         _timer += Time.deltaTime;
 
@@ -34,6 +37,14 @@ public class EnemySpawner : MonoBehaviour
             enemyObject.transform.position = transform.position;
 
         }
+
+
+    }
+
+    public void StopSpawning()
+    {
+        CanSpawn = false;
+        Debug.Log("Spawner 멈춤: " + gameObject.name);
     }
 
     private GameObject SelectRamdomEnemy()

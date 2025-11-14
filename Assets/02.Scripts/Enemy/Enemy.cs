@@ -41,7 +41,6 @@ public class Enemy : MonoBehaviour
 
     [Header("폭발 프리팹")]
     public GameObject ExplosionPrefab;
-  
 
     private void Start()
     {
@@ -126,6 +125,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void ResetEnemy()
+    {
+        _health = 100f;
+        _currentFirstMoveTime = 0;
+        _currentStopTime = 0;
+
+        // Hit 애니메이션 초기화
+        _animator.ResetTrigger("Hit");
+    }
     private void Death()
     {
         DropItem();
@@ -134,14 +142,15 @@ public class Enemy : MonoBehaviour
         // 점수 관리자는 인스턴스가 단 하나다. 혹은 단 하나임을 보장해야 한다.
         // 아무데서나 빠르게 접근하고 싶다.
         // 싱글톤 패턴
-        ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
+        //ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
 
         // 관리자(Manager) -> 관리자의 인스턴스(객체)는 보통 하나입니다.
 
         ScoreManager.Instance.AddScore(100); // todo: 매직넘버 수정
 
 
-        Destroy(this.gameObject);
+    
+        EnemyFactory.Instance.ReturnEnemy(this);
     }
 
 
@@ -191,7 +200,7 @@ public class Enemy : MonoBehaviour
 
         player.Hit(Damage);
 
-        Destroy(gameObject); // 나죽자.
+        EnemyFactory.Instance.ReturnEnemy(this);
 
     }
 }
