@@ -1579,6 +1579,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 9214287998579549041, guid: eafe9ebc4c0c74b40887b894b7b761f3, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 273547798}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

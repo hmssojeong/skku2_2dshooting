@@ -34,23 +34,29 @@ public class PlayerFire : MonoBehaviour
         // 1. 발사 버튼을 누르고 있거나 (혹은) or == || 자동 모드라면...
         if (Input.GetKey(KeyCode.Space) || AutoMode)
         {
-            FireSound.Play();
-
-            // 발사하고 나면 쿨타이머를 초기화
-            _coolTimer = CoolTime;
-
-            // 유니티에서 게임 오브젝트를 생성할때는 new가 instaintate 라는 메서드를 이용한다.
-            // 클래스 -> 객체(속성+기능) -> 메모리에 로드된 객체를 인스턴스
-            //                        ㄴ 인스턴스화
-
-            // 메인 총알 생성
-            MakeBullets();
-
-            // 보조 총알 생성
-            MakeSubBullets();
+            Fire();
         }
     }
 
+    public void Fire()
+    {
+        if (_coolTimer > 0) return;     // 조기 리턴
+
+        FireSound.Play();
+
+        // 발사하고 나면 쿨타이머를 초기화
+        _coolTimer = CoolTime;
+
+        // 유니티에서 게임 오브젝트를 생성할때는 new가 instaintate 라는 메서드를 이용한다.
+        // 클래스 -> 객체(속성+기능) -> 메모리에 로드된 객체를 인스턴스
+        //                        ㄴ 인스턴스화
+
+        // 메인 총알 생성
+        MakeBullets();
+
+        // 보조 총알 생성
+        MakeSubBullets();
+    }
     public void SpeedUp (float value)
     {
         CoolTime = Mathf.Max(0.05f, CoolTime - value);
