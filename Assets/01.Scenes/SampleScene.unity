@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossPrefab: {fileID: 8310476988080372027, guid: eafe9ebc4c0c74b40887b894b7b761f3, type: 3}
   spawnPoint: {fileID: 358909777}
-  bossSpawnScore: 1000
+  bossSpawnScore: 300
   enemySpawners:
   - {fileID: 547376505}
   - {fileID: 1593296198}

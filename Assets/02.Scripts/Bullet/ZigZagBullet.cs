@@ -1,51 +1,46 @@
 using UnityEngine;
 
-public class ZigZagBullet : MonoBehaviour
+public class BossBullet : MonoBehaviour
 {
     private Vector3 startPos;
     private Vector3 targetPos;
 
-    private float speed;
-    private float amplitude;
-    private float frequency;
+    [Header("이동")]
+    public float StartSpeed = 1f;
+    public float EndSpeed = 3f;
+    public float Duration = 1f;
+    private float _speed;
 
-    private float time;
+    [Header("공격력")]
+    public float Damage;
 
-    public void Initialize(Vector3 target, float speed, float amplitude, float frequency)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        this.targetPos = target;
-        this.speed = speed;
-        this.amplitude = amplitude;
-        this.frequency = frequency;
+        if (other.CompareTag("Player"))
+        {
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Hit(Damage);
+            }
 
-        this.startPos = transform.position;
-        this.time = 0f;
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnEnable()
     {
-        time = 0f;
+        _speed = StartSpeed;
     }
 
     private void Update()
     {
-        time += Time.deltaTime;
+        float acceleration = (EndSpeed - StartSpeed) / Duration;
 
-        // 직선 이동
-        Vector3 direction = (targetPos - startPos).normalized;
-        Vector3 forwardMove = direction * speed * Time.deltaTime;
+        _speed += time.deltaTime * acceleration;
+        _speed = Mathf.Min(_speed, EndSpeed);
 
-        // 지그재그 이동 (좌우)
-        float zigzagOffset = Mathf.Sin(time * frequency) * amplitude;
-        Vector3 side = new Vector3(-direction.y, direction.x, 0); // 방향에 수직 방향
-
-        transform.position += forwardMove + side * zigzagOffset * Time.deltaTime;
-
-        // 화면 벗어나면 비활성화
-        if (transform.position.y > 10f || transform.position.y < -10f ||
-            transform.position.x > 10f || transform.position.x < -10f)
-        {
-            gameObject.SetActive(false);
-        }
+        Vector3 direction = Vector.down;
+        transform.position += direction * _speed * Time.deltaTime;
     }
 }

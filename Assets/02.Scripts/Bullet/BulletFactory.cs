@@ -87,17 +87,9 @@ public class BulletFactory : MonoBehaviour
         return GetBulletFromPool(_subBulletPool, SubBulletPrefab, position);
     }
 
-    public GameObject MakeZigZagBullet(Vector3 position, Vector3 targetPosition,
-        float speed = 10f, float amplitude = 2f, float frequency = 5f)
+    public GameObject MakeZigZagBullet(Vector3 position)
     {
-        GameObject bullet = GetBulletFromPool(_zigzagBulletPool, ZigzagBulletPrefab, position);
-
-        ZigZagBullet zigzag = bullet.GetComponent<ZigZagBullet>();
-        if (zigzag != null)
-        {
-            zigzag.Initialize(targetPosition, speed, amplitude, frequency);
-        }
-
-        return bullet;
+        return GetBulletFromPool(_zigzagBulletPool, ZigzagBulletPrefab, position);
     }
+
 }

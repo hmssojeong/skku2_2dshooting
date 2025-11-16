@@ -13,10 +13,10 @@ public class BossController : MonoBehaviour
     [Header("총알 설정")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float fireInterval = 1.5f;  // 총알 발사 간격
-    public float bulletSpeed = 10f;
-    public float zigZagAmplitude = 2f; // 지그재그 폭
-    public float zigZagFrequency = 5f; // 지그재그 속도
+    public float StartSpeed = 1f;
+    public float EndSpeed = 3f;
+    public float Duration = 1f;
+    private float _speed;
 
     [Header("보스 체력")]
     public int maxHealth = 5000;
@@ -31,14 +31,14 @@ public class BossController : MonoBehaviour
     {
         currentHealth = maxHealth;
         _animator = GetComponent<Animator>();
+        Player = GameObject.FindWithTag("Player");
     }
 
     private void Update()
     {
-        if (Player == null) return;
-
         OrbitMovement();
         HandleShooting();
+        ShootZigZagBullet();
     }
 
     private void OrbitMovement()
@@ -62,15 +62,13 @@ public class BossController : MonoBehaviour
     }
     private void ShootZigZagBullet()
     {
-        if (firePoint == null || Player == null) return;
 
-        BulletFactory.Instance.MakeZigZagBullet(
-            firePoint.position,
-            Player.transform.position,
-            bulletSpeed,
-            zigZagAmplitude,
-            zigZagFrequency
-        );
+        if (firePoint == null || Player == null)
+        {
+            return;
+        }
+
+        BulletFactory.Instance.MakeZigZagBullet();
     }
 
     // 보스 데미지 함수
