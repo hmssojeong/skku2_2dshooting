@@ -37,10 +37,10 @@ public class BossBullet : MonoBehaviour
     {
         float acceleration = (EndSpeed - StartSpeed) / Duration;
 
-        _speed += time.deltaTime * acceleration;
+        _speed += Time.deltaTime * acceleration;
         _speed = Mathf.Min(_speed, EndSpeed);
 
-        Vector3 direction = Vector.down;
+        Vector3 direction = Vector3.down;
         transform.position += direction * _speed * Time.deltaTime;
     }
 }

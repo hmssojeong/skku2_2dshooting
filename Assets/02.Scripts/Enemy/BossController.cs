@@ -24,6 +24,7 @@ public class BossController : MonoBehaviour
 
     private float angle = 0f;          // 현재 각도
     private float fireTimer = 0f;
+    private float fireInterval = 2f;
 
     private Animator _animator;
 
@@ -38,7 +39,6 @@ public class BossController : MonoBehaviour
     {
         OrbitMovement();
         HandleShooting();
-        ShootZigZagBullet();
     }
 
     private void OrbitMovement()
@@ -64,11 +64,11 @@ public class BossController : MonoBehaviour
     {
 
         if (firePoint == null || Player == null)
-        {
+        { 
             return;
         }
 
-        BulletFactory.Instance.MakeZigZagBullet();
+        BulletFactory.Instance.MakeZigZagBullet(firePoint.position);
     }
 
     // 보스 데미지 함수
