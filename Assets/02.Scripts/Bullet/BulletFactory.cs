@@ -11,16 +11,16 @@ public class BulletFactory : MonoBehaviour
     [Header("총알 프리팹")] // 복사해올 총알 프리팹 게임 오브젝트
     public GameObject BulletPrefab;
     public GameObject SubBulletPrefab;
-    public GameObject ZigzagBulletPrefab;
+    public GameObject StraightBulletPrefab;
 
     [Header("풀링")]
     public int PoolSize = 30;
     public int SubPoolSize = 30;
-    public int ZigzagPoolSize = 30;
+    public int StraightPoolSize = 30;
 
     private List<GameObject> _bulletObjectPool = new List<GameObject>(); // 게임 총알을 담아둘 풀: 탄창
     private List<GameObject> _subBulletPool = new List<GameObject>();
-    private List<GameObject> _zigzagBulletPool = new List<GameObject>();
+    private List<GameObject> _straightBulletPool = new List<GameObject>();
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class BulletFactory : MonoBehaviour
     {
         CreatePool(_bulletObjectPool, BulletPrefab, PoolSize);
         CreatePool(_subBulletPool, SubBulletPrefab, SubPoolSize);
-        CreatePool(_zigzagBulletPool, ZigzagBulletPrefab, ZigzagPoolSize);
+        CreatePool(_straightBulletPool, StraightBulletPrefab, StraightPoolSize);
     }
 
     private void CreatePool(List<GameObject> pool, GameObject prefab, int size)
@@ -87,17 +87,9 @@ public class BulletFactory : MonoBehaviour
         return GetBulletFromPool(_subBulletPool, SubBulletPrefab, position);
     }
 
-    public GameObject MakeZigZagBullet(Vector3 position, Vector3 targetPosition,
-        float speed = 10f, float amplitude = 2f, float frequency = 5f)
+    public GameObject MakeStraightBullet(Vector3 position)
     {
-        GameObject bullet = GetBulletFromPool(_zigzagBulletPool, ZigzagBulletPrefab, position);
-
-        ZigZagBullet zigzag = bullet.GetComponent<ZigZagBullet>();
-        if (zigzag != null)
-        {
-            zigzag.Initialize(targetPosition, speed, amplitude, frequency);
-        }
-
-        return bullet;
+        return GetBulletFromPool(_straightBulletPool, StraightBulletPrefab, position);
     }
+
 }

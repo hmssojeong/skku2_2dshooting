@@ -1,7 +1,15 @@
 using UnityEngine;
 
+public enum EBossAttackType
+{
+    StraightBullet,
+    ContinuousBullet,
+}
 public class BossController : MonoBehaviour
 {
+    [Header("보스 공격 타입")]
+    public EBossAttackType Type;
+
     [Header("플레이어")]
     public GameObject Player;
 
@@ -13,10 +21,10 @@ public class BossController : MonoBehaviour
     [Header("총알 설정")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float fireInterval = 1.5f;  // 총알 발사 간격
-    public float bulletSpeed = 10f;
-    public float zigZagAmplitude = 2f; // 지그재그 폭
-    public float zigZagFrequency = 5f; // 지그재그 속도
+    public float StartSpeed = 1f;
+    public float EndSpeed = 3f;
+    public float Duration = 1f;
+    private float _speed;
 
     [Header("보스 체력")]
     public int maxHealth = 5000;
@@ -24,6 +32,7 @@ public class BossController : MonoBehaviour
 
     private float angle = 0f;          // 현재 각도
     private float fireTimer = 0f;
+    private float fireInterval = 1f;
 
     private Animator _animator;
 
@@ -31,14 +40,20 @@ public class BossController : MonoBehaviour
     {
         currentHealth = maxHealth;
         _animator = GetComponent<Animator>();
+        Player = GameObject.FindWithTag("Player");
     }
 
     private void Update()
     {
-        if (Player == null) return;
+        if (Type == EBossAttackType.StraightBullet)
+        {
+            OrbitMovement();
+            HandleShooting();
+        }
+        else if(Type == EBossAttackType.ContinuousBullet)
+        {
 
-        OrbitMovement();
-        HandleShooting();
+        }
     }
 
     private void OrbitMovement()
@@ -57,20 +72,39 @@ public class BossController : MonoBehaviour
         if (fireTimer >= fireInterval)
         {
             fireTimer = 0f;
-            ShootZigZagBullet();
+            
+            if(Random.Range(0,2) == 0)
+            {
+                ShootStraight();
+            }
+            else
+            {
+                ShootTriple();
+            }
+                    
         }
     }
-    private void ShootZigZagBullet()
+    private void ShootStraight()
     {
-        if (firePoint == null || Player == null) return;
 
-        BulletFactory.Instance.MakeZigZagBullet(
-            firePoint.position,
-            Player.transform.position,
-            bulletSpeed,
-            zigZagAmplitude,
-            zigZagFrequency
-        );
+        if (firePoint == null || Player == null)
+        { 
+            return;
+        }
+
+        BulletFactory.Instance.MakeStraightBullet(firePoint.position);
+    }
+
+    private void ShootTriple()
+    {
+        if(firePoint == null || Player == null)
+        {
+            return;
+        }
+
+        BulletFactory.Instance.MakeStraightBullet(firePoint.position);
+        BulletFactory.Instance.MakeStraightBullet(new Vector3(firePoint.position.x + 0.2f, firePoint.position.y, firePoint.position.z));
+        BulletFactory.Instance.MakeStraightBullet(new Vector3(firePoint.position.x - 0.2f, firePoint.position.y, firePoint.position.z));
     }
 
     // 보스 데미지 함수

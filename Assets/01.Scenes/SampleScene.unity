@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossPrefab: {fileID: 8310476988080372027, guid: eafe9ebc4c0c74b40887b894b7b761f3, type: 3}
   spawnPoint: {fileID: 358909777}
-  bossSpawnScore: 1000
+  bossSpawnScore: 300
   enemySpawners:
   - {fileID: 547376505}
   - {fileID: 1593296198}
@@ -2165,7 +2165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 485893854958176229, guid: 680df60090f94cb448569be4f7550ea5, type: 3}
   SubBulletPrefab: {fileID: 5356386489448996258, guid: 3582c023911445a4791641b1dc26fa4a, type: 3}
-  ZigzagBulletPrefab: {fileID: 5356386489448996258, guid: 5d1e06264ab999a4fb6e6e4e1c63cda8, type: 3}
+  StraightBulletPrefab: {fileID: 5356386489448996258, guid: 5d1e06264ab999a4fb6e6e4e1c63cda8, type: 3}
   PoolSize: 30
   SubPoolSize: 30
   ZigzagPoolSize: 30
