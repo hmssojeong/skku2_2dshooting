@@ -1,7 +1,15 @@
 using UnityEngine;
 
+public enum EBossAttackType
+{
+    StraightBullet,
+    ContinuousBullet,
+}
 public class BossController : MonoBehaviour
 {
+    [Header("보스 공격 타입")]
+    public EBossAttackType Type;
+
     [Header("플레이어")]
     public GameObject Player;
 
@@ -24,7 +32,7 @@ public class BossController : MonoBehaviour
 
     private float angle = 0f;          // 현재 각도
     private float fireTimer = 0f;
-    private float fireInterval = 2f;
+    private float fireInterval = 1f;
 
     private Animator _animator;
 
@@ -37,8 +45,15 @@ public class BossController : MonoBehaviour
 
     private void Update()
     {
-        OrbitMovement();
-        HandleShooting();
+        if (Type == EBossAttackType.StraightBullet)
+        {
+            OrbitMovement();
+            HandleShooting();
+        }
+        else if(Type == EBossAttackType.ContinuousBullet)
+        {
+
+        }
     }
 
     private void OrbitMovement()
@@ -57,10 +72,19 @@ public class BossController : MonoBehaviour
         if (fireTimer >= fireInterval)
         {
             fireTimer = 0f;
-            ShootZigZagBullet();
+            
+            if(Random.Range(0,2) == 0)
+            {
+                ShootStraight();
+            }
+            else
+            {
+                ShootTriple();
+            }
+                    
         }
     }
-    private void ShootZigZagBullet()
+    private void ShootStraight()
     {
 
         if (firePoint == null || Player == null)
@@ -68,7 +92,19 @@ public class BossController : MonoBehaviour
             return;
         }
 
-        BulletFactory.Instance.MakeZigZagBullet(firePoint.position);
+        BulletFactory.Instance.MakeStraightBullet(firePoint.position);
+    }
+
+    private void ShootTriple()
+    {
+        if(firePoint == null || Player == null)
+        {
+            return;
+        }
+
+        BulletFactory.Instance.MakeStraightBullet(firePoint.position);
+        BulletFactory.Instance.MakeStraightBullet(new Vector3(firePoint.position.x + 0.2f, firePoint.position.y, firePoint.position.z));
+        BulletFactory.Instance.MakeStraightBullet(new Vector3(firePoint.position.x - 0.2f, firePoint.position.y, firePoint.position.z));
     }
 
     // 보스 데미지 함수

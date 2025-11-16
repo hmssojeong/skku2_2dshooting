@@ -2165,7 +2165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 485893854958176229, guid: 680df60090f94cb448569be4f7550ea5, type: 3}
   SubBulletPrefab: {fileID: 5356386489448996258, guid: 3582c023911445a4791641b1dc26fa4a, type: 3}
-  ZigzagBulletPrefab: {fileID: 5356386489448996258, guid: 5d1e06264ab999a4fb6e6e4e1c63cda8, type: 3}
+  StraightBulletPrefab: {fileID: 5356386489448996258, guid: 5d1e06264ab999a4fb6e6e4e1c63cda8, type: 3}
   PoolSize: 30
   SubPoolSize: 30
   ZigzagPoolSize: 30

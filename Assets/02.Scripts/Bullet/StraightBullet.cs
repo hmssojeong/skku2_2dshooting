@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BossBullet : MonoBehaviour
+public class StraightBullet : MonoBehaviour
 {
     private Vector3 startPos;
     private Vector3 targetPos;
