@@ -12,15 +12,18 @@ public class BulletFactory : MonoBehaviour
     public GameObject BulletPrefab;
     public GameObject SubBulletPrefab;
     public GameObject StraightBulletPrefab;
+    public GameObject TripleBulletPrefab;
 
     [Header("풀링")]
     public int PoolSize = 30;
     public int SubPoolSize = 30;
     public int StraightPoolSize = 30;
+    public int TriplePoolSize = 30;
 
     private List<GameObject> _bulletObjectPool = new List<GameObject>(); // 게임 총알을 담아둘 풀: 탄창
     private List<GameObject> _subBulletPool = new List<GameObject>();
     private List<GameObject> _straightBulletPool = new List<GameObject>();
+    private List<GameObject> _tripleBulletPool = new List<GameObject>();
 
     private void Awake()
     {
@@ -40,13 +43,13 @@ public class BulletFactory : MonoBehaviour
         CreatePool(_bulletObjectPool, BulletPrefab, PoolSize);
         CreatePool(_subBulletPool, SubBulletPrefab, SubPoolSize);
         CreatePool(_straightBulletPool, StraightBulletPrefab, StraightPoolSize);
+        CreatePool(_tripleBulletPool, TripleBulletPrefab, TriplePoolSize);
     }
 
     private void CreatePool(List<GameObject> pool, GameObject prefab, int size)
     {
         if (prefab == null)
         {
-            Debug.LogError("프리팹이 연결되지 않았습니다: " + prefab);
             return;
         }
 
@@ -90,6 +93,10 @@ public class BulletFactory : MonoBehaviour
     public GameObject MakeStraightBullet(Vector3 position)
     {
         return GetBulletFromPool(_straightBulletPool, StraightBulletPrefab, position);
+    }
+    public GameObject MakeTripleBullet(Vector3 position)
+    {
+        return GetBulletFromPool(_tripleBulletPool, TripleBulletPrefab, position);
     }
 
 }

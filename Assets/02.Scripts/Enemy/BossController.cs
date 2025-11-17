@@ -3,7 +3,7 @@ using UnityEngine;
 public enum EBossAttackType
 {
     StraightBullet,
-    ContinuousBullet,
+    TripleBullet,
 }
 public class BossController : MonoBehaviour
 {
@@ -24,7 +24,6 @@ public class BossController : MonoBehaviour
     public float StartSpeed = 1f;
     public float EndSpeed = 3f;
     public float Duration = 1f;
-    private float _speed;
 
     [Header("보스 체력")]
     public int maxHealth = 5000;
@@ -35,6 +34,9 @@ public class BossController : MonoBehaviour
     private float fireInterval = 1f;
 
     private Animator _animator;
+
+    [Header("폭발 프리팹")]
+    public GameObject ExplosionPrefab;
 
     private void Awake()
     {
@@ -50,7 +52,7 @@ public class BossController : MonoBehaviour
             OrbitMovement();
             HandleShooting();
         }
-        else if(Type == EBossAttackType.ContinuousBullet)
+        else if(Type == EBossAttackType.TripleBullet)
         {
 
         }
@@ -102,9 +104,9 @@ public class BossController : MonoBehaviour
             return;
         }
 
-        BulletFactory.Instance.MakeStraightBullet(firePoint.position);
-        BulletFactory.Instance.MakeStraightBullet(new Vector3(firePoint.position.x + 0.2f, firePoint.position.y, firePoint.position.z));
-        BulletFactory.Instance.MakeStraightBullet(new Vector3(firePoint.position.x - 0.2f, firePoint.position.y, firePoint.position.z));
+        BulletFactory.Instance.MakeTripleBullet(firePoint.position);
+        BulletFactory.Instance.MakeTripleBullet(new Vector3(firePoint.position.x + 0.2f, firePoint.position.y, firePoint.position.z));
+        BulletFactory.Instance.MakeTripleBullet(new Vector3(firePoint.position.x - 0.2f, firePoint.position.y, firePoint.position.z));
     }
 
     // 보스 데미지 함수
@@ -121,9 +123,13 @@ public class BossController : MonoBehaviour
         }
     }
 
+    private void MakeExplosionEffect()
+    {
+        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+    }
     private void Die()
     {
-        Debug.Log("보스 몬스터 사망!");
+        MakeExplosionEffect();
         Destroy(gameObject);
     }
 }

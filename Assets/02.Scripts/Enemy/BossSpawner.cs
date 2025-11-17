@@ -53,24 +53,6 @@ public class BossSpawner : MonoBehaviour
 
     private void SpawnBoss()
     {
-
-/*        // 화면 중앙 X, 상단 끝 Y 계산
-        Vector3 spawnPos = Vector3.zero;
-
-        Camera mainCam = Camera.main;
-        if (mainCam != null)
-        {
-            // Viewport 기준 (0~1)
-            Vector3 topCenter = mainCam.ViewportToWorldPoint(new Vector3(0.5f, 1f, 0f));
-            spawnPos.x = topCenter.x;  // X 중앙
-            spawnPos.y = topCenter.y;  // Y 상단 끝
-            spawnPos.z = 0f;           // 2D 게임 Z축 고정
-        }
-        else if (spawnPoint != null)
-        {
-            spawnPos = spawnPoint.position;
-        }*/
-
         Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
         bossSpawned = true;
 
@@ -80,8 +62,6 @@ public class BossSpawner : MonoBehaviour
             if (spawner != null)
                 spawner.StopSpawning();
         }
-
-        Debug.Log("보스 소환 완료! 일반 적 스포너 멈춤!");
     
     }
 }
