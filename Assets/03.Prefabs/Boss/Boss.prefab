@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49cafe60d0bcb564e88d7fd90f28d052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 0
   Player: {fileID: 0}
   radius: 5
   orbitSpeed: 50
@@ -199,6 +200,7 @@ MonoBehaviour:
   EndSpeed: 3
   Duration: 1
   maxHealth: 5000
+  ExplosionPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
 --- !u!1 &8805572033226816279
 GameObject:
   m_ObjectHideFlags: 0

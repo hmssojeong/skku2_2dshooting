@@ -44,7 +44,6 @@ public class EnemySpawner : MonoBehaviour
     public void StopSpawning()
     {
         CanSpawn = false;
-        Debug.Log("Spawner 멈춤: " + gameObject.name);
     }
 
     private GameObject SelectRamdomEnemy()
